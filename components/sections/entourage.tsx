@@ -144,6 +144,7 @@ const ROLE_CATEGORY_ORDER = [
   "Parents of the Bride",
   "Family of the Groom",
   "Family of the Bride",
+  "Man of Honor",
   "Matron of Honor",
   "Best Man",
   "Maid of Honor",
@@ -160,6 +161,13 @@ const ROLE_CATEGORY_ORDER = [
   "Flower Girls",
 ]
 
+const HONOR_ATTENDANT_BLOCK_CATEGORIES = [
+  "Man of Honor",
+  "Matron of Honor",
+  "Best Man",
+  "Maid of Honor",
+] as const
+
 const HIDDEN_ROLE_CATEGORIES = new Set<string>([])
 
 function normalizeRoleCategory(category: string): string {
@@ -167,6 +175,14 @@ function normalizeRoleCategory(category: string): string {
   if (normalized.toLowerCase() === "officiating minister") {
     return "OFFICIATING MINISTER"
   }
+  const honorAliases: Record<string, string> = {
+    "man of honor": "Man of Honor",
+    "best man": "Best Man",
+    "maid of honor": "Maid of Honor",
+    "matron of honor": "Matron of Honor",
+  }
+  const alias = honorAliases[normalized.toLowerCase()]
+  if (alias) return alias
   return normalized
 }
 
@@ -715,21 +731,56 @@ export function Entourage() {
                   return null
                 }
 
-                // Special handling for Maid/Matron of Honor and Best Man - combine into single two-column layout
-                if (category === "Matron of Honor" || category === "Maid of Honor" || category === "Best Man") {
-                  // Get both honor attendant groups - combine Maid and Matron of Honor
-                  const maidOfHonor = [...(grouped["Maid of Honor"] || []), ...(grouped["Matron of Honor"] || [])]
+                // Man of Honor, Maid/Matron of Honor, and Best Man — Man of Honor above Best Men
+                if (
+                  category === "Man of Honor" ||
+                  category === "Matron of Honor" ||
+                  category === "Maid of Honor" ||
+                  category === "Best Man"
+                ) {
+                  const manOfHonor = grouped["Man of Honor"] || []
+                  const maidOfHonor = [
+                    ...(grouped["Maid of Honor"] || []),
+                    ...(grouped["Matron of Honor"] || []),
+                  ]
                   const bestMan = grouped["Best Man"] || []
-                  
-                  // Only render once (when processing "Best Man")
-                  if (category === "Best Man") {
-                    return (
-                      <div key="HonorAttendants">
-                        {categoryIndex > 0 && (
-                          <div className="flex justify-center py-2 sm:py-2.5 md:py-3 mb-2 sm:mb-2.5 md:mb-3">
-                            <div className="w-full max-w-md h-px" style={dividerLineStyle} />
-                          </div>
-                        )}
+
+                  const firstHonorCategory = HONOR_ATTENDANT_BLOCK_CATEGORIES.find(
+                    (honorCategory) => (grouped[honorCategory]?.length ?? 0) > 0
+                  )
+                  if (category !== firstHonorCategory) return null
+
+                  const hasBestManOrMaid =
+                    bestMan.length > 0 || maidOfHonor.length > 0
+
+                  return (
+                    <div key="HonorAttendants">
+                      {categoryIndex > 0 && (
+                        <div className="flex justify-center py-2 sm:py-2.5 md:py-3 mb-2 sm:mb-2.5 md:mb-3">
+                          <div className="w-full max-w-md h-px" style={dividerLineStyle} />
+                        </div>
+                      )}
+
+                      {manOfHonor.length > 0 && (
+                        <TwoColumnLayout singleTitle="Man of Honor" centerContent={true}>
+                          {manOfHonor.map((member, idx) => (
+                            <div
+                              key={`man-of-honor-${idx}-${member.name}`}
+                              className="col-span-2 flex justify-center min-w-0 overflow-hidden px-0.5 sm:px-1"
+                            >
+                              <NameItem member={member} align="center" />
+                            </div>
+                          ))}
+                        </TwoColumnLayout>
+                      )}
+
+                      {manOfHonor.length > 0 && hasBestManOrMaid && (
+                        <div className="flex justify-center py-1.5 sm:py-2 md:py-2.5 mb-2 sm:mb-2.5 md:mb-3">
+                          <div className="w-full max-w-md h-px" style={dividerLineStyle} />
+                        </div>
+                      )}
+
+                      {hasBestManOrMaid && (
                         <TwoColumnLayout leftTitle="Best Men" rightTitle="Maid & Matron">
                           {(() => {
                             const maxLen = Math.max(bestMan.length, maidOfHonor.length)
@@ -739,11 +790,25 @@ export function Entourage() {
                               const right = maidOfHonor[i]
                               rows.push(
                                 <React.Fragment key={`honor-row-${i}`}>
-                                  <div key={`maid-cell-${i}`} className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden">
-                                    {left ? <NameItem member={left} align="right" /> : <div className="py-0.5" />}
+                                  <div
+                                    key={`bestman-cell-${i}`}
+                                    className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden"
+                                  >
+                                    {left ? (
+                                      <NameItem member={left} align="right" />
+                                    ) : (
+                                      <div className="py-0.5" />
+                                    )}
                                   </div>
-                                  <div key={`bestman-cell-${i}`} className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden">
-                                    {right ? <NameItem member={right} align="left" /> : <div className="py-0.5" />}
+                                  <div
+                                    key={`maid-cell-${i}`}
+                                    className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden"
+                                  >
+                                    {right ? (
+                                      <NameItem member={right} align="left" />
+                                    ) : (
+                                      <div className="py-0.5" />
+                                    )}
                                   </div>
                                 </React.Fragment>
                               )
@@ -751,11 +816,9 @@ export function Entourage() {
                             return rows
                           })()}
                         </TwoColumnLayout>
-                      </div>
-                    )
-                  }
-                  // Skip rendering for "Matron of Honor" and "Maid of Honor" since they're already rendered above
-                  return null
+                      )}
+                    </div>
+                  )
                 }
 
                 // Special handling for Little Groom and Little Bride - combine into single two-column layout

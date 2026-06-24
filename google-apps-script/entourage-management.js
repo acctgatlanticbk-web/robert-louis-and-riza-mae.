@@ -39,6 +39,9 @@ function doPost(e) {
       case 'create':
         result = createEntourageMember(sheet, body);
         break;
+      case 'fill-slot':
+        result = fillEntourageSlot(sheet, body);
+        break;
       case 'update':
         result = updateEntourageMember(sheet, body);
         break;
@@ -108,6 +111,108 @@ function getAllEntourageMembers(sheet) {
       RoleTitle: row[2] || '',
       Email: row[3] || ''
     }));
+}
+
+/**
+ * Build a set of normalized role categories (primary + aliases).
+ */
+function getRoleCategorySet(data) {
+  const categories = new Set();
+  const primary = (data.RoleCategory || '').toString().trim().toLowerCase();
+  if (primary) categories.add(primary);
+
+  const aliases = data.RoleCategoryAliases || [];
+  if (Array.isArray(aliases)) {
+    aliases.forEach(function(alias) {
+      const normalized = alias.toString().trim().toLowerCase();
+      if (normalized) categories.add(normalized);
+    });
+  }
+
+  return categories;
+}
+
+/**
+ * Find the bottom-most empty name slot for a role category.
+ * Scans from the last row upward so pre-reserved rows at the bottom fill first.
+ */
+function findEmptyEntourageSlotRow(sheet, roleCategories) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return -1;
+
+  const data = sheet.getRange(2, 1, lastRow - 1, 2).getValues();
+  let genericEmptyRow = -1;
+
+  for (let i = data.length - 1; i >= 0; i--) {
+    const rowName = data[i][0].toString().trim();
+    const rowCategory = data[i][1].toString().trim().toLowerCase();
+
+    if (rowName) continue;
+
+    if (roleCategories.size > 0 && rowCategory && roleCategories.has(rowCategory)) {
+      return i + 2;
+    }
+
+    if (genericEmptyRow === -1) {
+      genericEmptyRow = i + 2;
+    }
+  }
+
+  return genericEmptyRow;
+}
+
+/**
+ * Fill an existing empty entourage row instead of appending a new one.
+ * Used when someone accepts a proposal invite.
+ */
+function fillEntourageSlot(sheet, data) {
+  if (!data.Name) {
+    throw new Error('Name is required');
+  }
+
+  const name = data.Name.toString().trim();
+  const roleCategory = (data.RoleCategory || '').toString().trim();
+  const roleTitle = (data.RoleTitle || '').toString().trim();
+  const email = (data.Email || '').toString().trim();
+  const roleCategories = getRoleCategorySet(data);
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    const existingNames = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+    for (let i = 0; i < existingNames.length; i++) {
+      if (existingNames[i][0].toString().trim() === name) {
+        throw new Error('Entourage member with this name already exists');
+      }
+    }
+  }
+
+  const rowIndex = findEmptyEntourageSlotRow(sheet, roleCategories);
+  if (rowIndex === -1) {
+    return createEntourageMember(sheet, data);
+  }
+
+  sheet.getRange(rowIndex, 1).setValue(name);
+  if (roleCategory) {
+    sheet.getRange(rowIndex, 2).setValue(roleCategory);
+  }
+  if (roleTitle) {
+    sheet.getRange(rowIndex, 3).setValue(roleTitle);
+  }
+  if (email) {
+    sheet.getRange(rowIndex, 4).setValue(email);
+  }
+
+  return {
+    status: 'ok',
+    message: 'Entourage slot filled successfully',
+    row: rowIndex,
+    data: {
+      Name: name,
+      RoleCategory: roleCategory,
+      RoleTitle: roleTitle,
+      Email: email
+    }
+  };
 }
 
 /**

@@ -37,6 +37,9 @@ function doPost(e) {
       case 'create':
         result = createPrincipalSponsor(sheet, body);
         break;
+      case 'fill-slot':
+        result = fillPrincipalSponsorSlot(sheet, body);
+        break;
       case 'update':
         result = updatePrincipalSponsor(sheet, body);
         break;
@@ -104,6 +107,88 @@ function getAllPrincipalSponsors(sheet) {
       MalePrincipalSponsor: row[0] || '',
       FemalePrincipalSponsor: row[1] || ''
     }));
+}
+
+/**
+ * Find the bottom-most row with an empty male or female sponsor cell.
+ */
+function findEmptySponsorSlotRow(sheet, fillColumn) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return -1;
+
+  const columnIndex = fillColumn === 'female' ? 1 : 0;
+  const data = sheet.getRange(2, 1, lastRow - 1, 2).getValues();
+
+  for (let i = data.length - 1; i >= 0; i--) {
+    if (!data[i][columnIndex].toString().trim()) {
+      return i + 2;
+    }
+  }
+
+  return -1;
+}
+
+/**
+ * Fill an existing empty principal sponsor cell instead of appending a new row.
+ * Used when someone accepts a proposal invite as Ninong or Ninang.
+ */
+function fillPrincipalSponsorSlot(sheet, data) {
+  const fillColumn = (data.fillColumn || '').toString().trim().toLowerCase();
+  const maleSponsor = (data.MalePrincipalSponsor || '').toString().trim();
+  const femaleSponsor = (data.FemalePrincipalSponsor || '').toString().trim();
+
+  if (fillColumn !== 'male' && fillColumn !== 'female') {
+    throw new Error('fillColumn must be "male" or "female"');
+  }
+
+  if (fillColumn === 'male' && !maleSponsor) {
+    throw new Error('MalePrincipalSponsor is required');
+  }
+
+  if (fillColumn === 'female' && !femaleSponsor) {
+    throw new Error('FemalePrincipalSponsor is required');
+  }
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    const existingData = sheet.getRange(2, 1, lastRow - 1, 2).getValues();
+    for (let i = 0; i < existingData.length; i++) {
+      const existingMale = existingData[i][0].toString().trim();
+      const existingFemale = existingData[i][1].toString().trim();
+
+      if (fillColumn === 'male' && existingMale === maleSponsor) {
+        throw new Error('Principal sponsor with this name already exists');
+      }
+
+      if (fillColumn === 'female' && existingFemale === femaleSponsor) {
+        throw new Error('Principal sponsor with this name already exists');
+      }
+    }
+  }
+
+  const rowIndex = findEmptySponsorSlotRow(sheet, fillColumn);
+  if (rowIndex === -1) {
+    return createPrincipalSponsor(sheet, data);
+  }
+
+  if (fillColumn === 'male') {
+    sheet.getRange(rowIndex, 1).setValue(maleSponsor);
+  } else {
+    sheet.getRange(rowIndex, 2).setValue(femaleSponsor);
+  }
+
+  const updatedMale = sheet.getRange(rowIndex, 1).getValue().toString().trim();
+  const updatedFemale = sheet.getRange(rowIndex, 2).getValue().toString().trim();
+
+  return {
+    status: 'ok',
+    message: 'Principal sponsor slot filled successfully',
+    row: rowIndex,
+    data: {
+      MalePrincipalSponsor: updatedMale,
+      FemalePrincipalSponsor: updatedFemale
+    }
+  };
 }
 
 /**

@@ -39,8 +39,10 @@ async function syncConfirmedToSheet(payload: ProposalSubmitPayload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "fill-slot",
         Name: payload.name.trim(),
         RoleCategory: roleDef.roleCategory,
+        RoleCategoryAliases: roleDef.roleCategoryAliases ?? [],
         Email: "",
       }),
     })
@@ -52,6 +54,8 @@ async function syncConfirmedToSheet(payload: ProposalSubmitPayload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "fill-slot",
+        fillColumn: "male",
         MalePrincipalSponsor: payload.name.trim(),
         FemalePrincipalSponsor: "",
       }),
@@ -64,6 +68,8 @@ async function syncConfirmedToSheet(payload: ProposalSubmitPayload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "fill-slot",
+        fillColumn: "female",
         MalePrincipalSponsor: "",
         FemalePrincipalSponsor: payload.name.trim(),
       }),

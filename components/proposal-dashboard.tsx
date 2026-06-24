@@ -168,8 +168,9 @@ export function ProposalDashboard() {
             <div>
               <h2 className="text-2xl font-bold text-[#111827]">Proposal Invitations</h2>
               <p className="mt-1 max-w-xl text-sm leading-relaxed text-[#6B7280]">
-                Share a unique proposal link for each role. When someone accepts, their name syncs
-                to entourage or sponsors in Google Sheets — Name and category only.
+                Share a unique proposal link for each role. When someone accepts, their name fills
+                the next available empty slot in Google Sheets (entourage or sponsors) — matched by
+                role category.
               </p>
             </div>
           </div>
@@ -401,10 +402,12 @@ export function ProposalDashboard() {
       </Dialog>
 
       <p className="rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-xs leading-relaxed text-[#9CA3AF]">
-        Confirmed responses auto-sync to{" "}
+        Confirmed responses fill the bottom-most empty row in{" "}
         <span className="font-mono text-[#6B7280]">googleAPI.entourage</span> or{" "}
-        <span className="font-mono text-[#6B7280]">googleAPI.sponsors</span> with Name and
-        RoleCategory only.
+        <span className="font-mono text-[#6B7280]">googleAPI.sponsors</span> for the matching role
+        (Name + RoleCategory). Redeploy the Apps Script after updating{" "}
+        <span className="font-mono text-[#6B7280]">entourage-management.js</span> and{" "}
+        <span className="font-mono text-[#6B7280]">principal-sponsor-management.js</span>.
       </p>
     </div>
   )
