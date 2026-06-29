@@ -3,7 +3,7 @@ import { siteConfig } from "@/content/site"
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://mark-and-denise.weddinginvitationrsvp.com/"
+  "https://kath-and-jopert.weddinginvitationrsvp.com/"
 const canonicalBase = siteUrl.replace(/\/$/, "")
 
 export const PROPOSAL_OG_IMAGE_PATH = "/Details/linkPreview.png"
