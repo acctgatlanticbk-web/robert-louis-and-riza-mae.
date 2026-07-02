@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { CloudinaryImage } from "@/components/ui/cloudinary-image"
+import Image from "next/image"
 
 type ImageItem = {
   src: string
@@ -33,16 +33,11 @@ export default function MasonryGallery({ images }: { images: ImageItem[] }) {
     return () => window.removeEventListener("keydown", onKey)
   }, [filtered.length, lightboxIdx])
 
-  // Ensure already-cached images appear (loaded state from complete)
-  const setImgRef = (el: HTMLImageElement | null, src: string) => {
-    if (!el) return
-    if (el.complete) {
-      setLoaded((l) => (l[src] ? l : { ...l, [src]: true }))
-    }
-  }
-
   const getCardAspect = (image: ImageItem) => {
-    return image.category === "desktop" ? "aspect-[4/3]" : "aspect-[4/5]"
+    if (image.orientation === "portrait" || image.category === "mobile") {
+      return "aspect-[4/5]"
+    }
+    return "aspect-[4/3]"
   }
 
   return (
@@ -72,11 +67,11 @@ export default function MasonryGallery({ images }: { images: ImageItem[] }) {
                 <div className={`${getCardAspect(img)} w-full animate-pulse bg-gradient-to-br from-[#606C60]/30 via-[#E1D5C7]/25 to-[#606C60]/30`} />
               )}
               <div className={`relative w-full ${getCardAspect(img)}`}>
-                <CloudinaryImage
+                <Image
                   src={img.src}
                   alt=""
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className={`rounded-xl transition-transform duration-300 group-hover:scale-[1.02] object-cover object-top ${
                     loaded[img.src] ? "opacity-100" : "opacity-0"
                   }`}
@@ -107,18 +102,14 @@ export default function MasonryGallery({ images }: { images: ImageItem[] }) {
               ‹
             </button>
             <div className="relative max-h-[80vh] w-auto">
-              <CloudinaryImage
+              <Image
                 src={filtered[lightboxIdx].src}
                 alt=""
                 width={filtered[lightboxIdx].width}
                 height={filtered[lightboxIdx].height}
                 className="max-h-[80vh] w-auto rounded-xl shadow-2xl border border-[#606C60]/30 object-contain"
                 quality={95}
-                priority={true}
-                style={{
-                  imageRendering: 'high-quality',
-                  WebkitImageRendering: 'high-quality',
-                }}
+                priority
               />
             </div>
             <button

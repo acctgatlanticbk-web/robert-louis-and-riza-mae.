@@ -260,15 +260,6 @@ function normalizeRoleCategory(category: string): string {
   return normalized
 }
 
-/** Title case per word; uses Unicode letters so ñe → Ñe (not ñE from ASCII-only `/\b\w/g`). */
-function toTitleCaseDisplayName(name: string): string {
-  const lower = name.toLocaleLowerCase("es")
-  return lower.replace(
-    /(^|[\s'\-])(\p{L})/gu,
-    (_, sep: string, letter: string) => sep + letter.toLocaleUpperCase("es")
-  )
-}
-
 export function Entourage() {
   const siteConfig = useSiteConfig()
   const [entourage, setEntourage] = useState<EntourageMember[]>([])
@@ -415,7 +406,7 @@ export function Entourage() {
       align === "right" ? "items-end" : align === "left" ? "items-start" : "items-center"
     const textAlign =
       align === "right" ? "text-right" : align === "left" ? "text-left" : "text-center"
-    const displayName = toTitleCaseDisplayName(member.name)
+    const displayName = member.name.trim()
     return (
       <div
         className={`relative flex flex-col ${containerAlign} justify-center py-0.5 sm:py-1 min-w-0 w-full max-w-full group/item transition-all duration-300`}
@@ -425,7 +416,7 @@ export function Entourage() {
           style={{ background: `linear-gradient(to right, transparent, color-mix(in srgb, white 28%, transparent), transparent)` }}
         />
         <p
-          className={`font-goudy-italic relative font-medium ${textAlign} transition-all duration-300 whitespace-nowrap max-w-full overflow-hidden text-ellipsis`}
+          className={`font-goudy-italic relative font-medium normal-case ${textAlign} transition-all duration-300 whitespace-nowrap max-w-full overflow-hidden text-ellipsis`}
           style={{ ...nameStyle, color: palette.heading }}
           title={displayName}
         >

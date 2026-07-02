@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, type CSSProperties } from "react"
 import {
   Search,
   CheckCircle,
@@ -42,6 +42,43 @@ const OUTSIDE_TEXT = "#FFFFFF"
 const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
 const OUTSIDE_TITLE_SHADOW = "0 2px 6px rgba(0,0,0,0.28), 0 0 18px rgba(0,0,0,0.12)"
 
+const palette = {
+  body: "var(--color-welcome-text)",
+  heading: "var(--color-welcome-navy)",
+  label: "var(--color-welcome-heading)",
+  accent: "var(--color-welcome-green)",
+} as const
+
+const modalCardStyle = {
+  background: "var(--color-welcome-bg)",
+  borderColor: "color-mix(in srgb, var(--color-motif-deep) 14%, transparent)",
+  borderWidth: "1px",
+  borderStyle: "solid" as const,
+  boxShadow:
+    "0 8px 28px color-mix(in srgb, var(--color-motif-deep) 7%, transparent), inset 0 1px 0 color-mix(in srgb, white 70%, transparent)",
+} as const
+
+const innerSurfaceStyle = {
+  background: "var(--color-welcome-bg-soft)",
+  borderColor: "color-mix(in srgb, var(--color-motif-deep) 10%, transparent)",
+} as const
+
+const modalInputClass =
+  "w-full rounded-lg border bg-white px-2.5 py-1.5 font-goudy-italic text-xs transition-all duration-300 focus:ring-2 focus:ring-[color-mix(in_srgb,var(--color-welcome-green)_25%,transparent)] sm:px-3 sm:py-2 sm:text-sm"
+
+const modalInputStyle = {
+  borderColor: "color-mix(in srgb, var(--color-motif-deep) 14%, transparent)",
+  color: palette.heading,
+} as const
+
+const modalLabelClass =
+  "font-goudy-italic mb-1.5 flex flex-wrap items-center gap-1.5 text-xs font-semibold sm:mb-2 sm:gap-2 sm:text-sm"
+
+const dividerLineStyle = {
+  background:
+    "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-motif-deep) 38%, transparent), transparent)",
+} as const
+
 interface ApiGuest {
   id: string | number
   name: string
@@ -63,6 +100,7 @@ interface Guest {
   id: string | number
   Name: string
   Email: string
+  Phone: string
   RSVP: string
   Guest: string
   Message: string
@@ -90,6 +128,7 @@ export function GuestList() {
   const [formData, setFormData] = useState({
     Name: "",
     Email: "",
+    Phone: "",
     RSVP: "",
     Guest: "1",
     Message: "",
@@ -226,6 +265,7 @@ export function GuestList() {
           id: guest.id,
           Name: guest.name,
           Email: guest.email || "",
+          Phone: guest.contact || "",
           RSVP: guest.status === "confirmed" ? "Yes" : guest.status === "declined" ? "No" : "",
           Guest: guest.allowedGuests?.toString() || "1",
           Message: guest.message || "",
@@ -253,6 +293,7 @@ export function GuestList() {
     setFormData({
       Name: guest.Name,
       Email: guest.Email && guest.Email !== "Pending" && guest.Email !== "" ? guest.Email : "",
+      Phone: guest.Phone || "",
       RSVP: guest.RSVP || "",
       Guest: guest.Guest && guest.Guest !== "" ? guest.Guest : "1",
       Message: guest.Message || "",
@@ -309,10 +350,11 @@ export function GuestList() {
           id: String(selectedGuest.id),
           name: formData.Name,
           email: formData.Email || "Pending",
+          contact: formData.Phone || "",
           status: status,
           allowedGuests: parseInt(guestCount),
           message: formData.Message,
-          companions: companions, // Include companion names
+          companions: companions,
         }),
       })
 
@@ -342,7 +384,7 @@ export function GuestList() {
     setShowModal(false)
     setSelectedGuest(null)
     setSearchQuery("")
-    setFormData({ Name: "", Email: "", RSVP: "", Guest: "1", Message: "", Status: "pending" })
+    setFormData({ Name: "", Email: "", Phone: "", RSVP: "", Guest: "1", Message: "", Status: "pending" })
     setCompanions([])
     setHasResponded(false)
     setError(null)
@@ -595,98 +637,174 @@ export function GuestList() {
 
       {/* RSVP Modal */}
       {showModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-1 sm:p-2 md:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in"
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-1 backdrop-blur-sm animate-in fade-in sm:p-2 md:p-4"
           onClick={handleCloseModal}
         >
-            <div 
-              className="relative w-full max-w-md sm:max-w-lg mx-1 sm:mx-2 md:mx-4 bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-motif-deep/80 overflow-hidden animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="relative bg-motif-deep p-3 sm:p-4 md:p-5 lg:p-6 flex-shrink-0">
-                <div className="relative flex items-start justify-between gap-1.5 sm:gap-2">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-1 sm:mb-1.5 md:mb-2 lg:mb-3">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-motif-deep" />
-                      </div>
-                      <h3 className={`${cinzel.className} text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-motif-cream truncate`}>
-                        You're Invited!
-                      </h3>
-                    </div>
-                    <p className={`font-goudy-italic text-motif-cream/95 text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg leading-tight sm:leading-normal`}>
-                      Hello <span className="font-extrabold text-motif-cream">{selectedGuest?.Name}</span>, you are invited to our wedding!
-                    </p>
-                    <p className={`font-goudy-italic text-motif-cream/90 text-[10px] sm:text-xs md:text-sm mt-1 sm:mt-1.5`}>
-                      We've reserved <span className="font-bold text-motif-cream">{selectedGuest?.AllowedGuests || 1}</span> {selectedGuest?.AllowedGuests === 1 ? 'seat' : 'seats'} for you.
-                    </p>
-                  </div>
-                  {!hasResponded && (
-                    <button
-                      onClick={handleCloseModal}
-                      className="text-motif-deep/80 hover:text-motif-deep transition-colors p-0.5 sm:p-1 md:p-2 hover:bg-white/20 rounded-full flex-shrink-0"
-                    >
-                      <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-motif-deep" />
-                    </button>
-                  )}
-                </div>
+          <div
+            className="relative mx-1 flex max-h-[95vh] w-full max-w-md flex-col overflow-hidden rounded-xl animate-in zoom-in-95 duration-300 sm:mx-2 sm:max-w-lg sm:rounded-2xl md:mx-4"
+            style={modalCardStyle}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-5 top-0 h-px sm:inset-x-8"
+              style={{
+                background:
+                  "linear-gradient(to right, transparent, var(--color-motif-yellow), transparent)",
+              }}
+            />
+
+            {/* Modal Header */}
+            <div className="relative flex-shrink-0 px-4 pb-4 pt-5 text-center sm:px-6 sm:pb-5 sm:pt-6">
+              {!hasResponded && (
+                <button
+                  onClick={handleCloseModal}
+                  className="absolute right-2 top-2 rounded-full p-1 transition-colors hover:bg-black/5 sm:right-3 sm:top-3 sm:p-1.5"
+                  style={{ color: palette.heading }}
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              )}
+
+              <div className="mx-auto mb-4 flex items-center justify-center gap-1.5 sm:mb-5">
+                <span className="h-px w-6 sm:w-10" style={dividerLineStyle} />
+                <Heart className="h-3 w-3 sm:h-3.5 sm:w-3.5" style={{ color: palette.accent }} aria-hidden />
+                <span className="h-px w-6 sm:w-10" style={dividerLineStyle} />
               </div>
 
-              {/* Modal Content */}
-              <div className="p-2.5 sm:p-3 md:p-4 lg:p-5 xl:p-6 overflow-y-auto flex-1 min-h-0">
+              <h3
+                className="relative mx-auto w-full max-w-full text-center"
+                style={
+                  {
+                    "--title-size": "clamp(1.45rem, 5vw, 2.25rem)",
+                    "--script-size": "clamp(1rem, 3.5vw, 1.65rem)",
+                    "--script-overlap": "clamp(-0.55rem, -2.2vw, -1rem)",
+                  } as CSSProperties
+                }
+              >
+                <span
+                  className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.15em]`}
+                  style={{ fontSize: "var(--title-size)", color: palette.heading }}
+                >
+                  You&apos;re Invited
+                </span>
+                <span
+                  aria-hidden
+                  className={`${aboveTheBeyond.className} relative z-10 mx-auto block w-fit max-w-full px-1 leading-[0.88]`}
+                  style={{
+                    marginTop: "var(--script-overlap)",
+                    fontSize: "var(--script-size)",
+                    color: palette.accent,
+                    textShadow:
+                      "0 1px 0 color-mix(in srgb, var(--color-welcome-bg) 95%, white), 0 0 10px color-mix(in srgb, var(--color-welcome-bg) 65%, white)",
+                  }}
+                >
+                  {selectedGuest?.Name || "to our celebration"}
+                </span>
+              </h3>
+
+              <p
+                className="font-goudy-italic mx-auto mt-4 max-w-md text-[0.75rem] leading-snug sm:mt-5 sm:text-[0.8125rem] md:text-[0.84375rem]"
+                style={{ color: palette.body }}
+              >
+                Hello <span style={{ color: palette.heading }}>{selectedGuest?.Name}</span>, you are
+                invited to our wedding!
+              </p>
+              <p
+                className="font-goudy-italic mx-auto mt-2 text-[0.7rem] leading-snug sm:text-xs"
+                style={{ color: palette.body }}
+              >
+                We&apos;ve reserved{" "}
+                <span className="font-semibold" style={{ color: palette.accent }}>
+                  {selectedGuest?.AllowedGuests || 1}
+                </span>{" "}
+                {selectedGuest?.AllowedGuests === 1 ? "seat" : "seats"} for you.
+              </p>
+            </div>
+
+            {/* Modal Content */}
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-5 md:px-7 md:pb-6">
                 {hasResponded ? (
-                  // Thank you message for guests who already responded
-                  <div className="text-center py-3 sm:py-4 md:py-6">
-                    <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-motif-deep rounded-full mb-2 sm:mb-3 md:mb-4">
-                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-white" />
+                  <div className="py-3 text-center sm:py-4 md:py-6">
+                    <div
+                      className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full sm:mb-4 sm:h-14 sm:w-14 md:h-16 md:w-16"
+                      style={{ backgroundColor: palette.accent }}
+                    >
+                      <CheckCircle className="h-6 w-6 text-white sm:h-7 sm:w-7 md:h-8 md:w-8" />
                     </div>
-                    <h4 className={`${cinzel.className} text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-motif-deep mb-1.5 sm:mb-2 md:mb-3`}>
+                    <h4
+                      className={`${theSeasons.className} mb-2 text-base uppercase tracking-[0.12em] sm:text-lg md:text-xl`}
+                      style={{ color: palette.heading }}
+                    >
                       Thank You for Responding!
                     </h4>
-                    <p className="text-motif-medium text-[10px] sm:text-xs md:text-sm mb-2 sm:mb-3 md:mb-4 px-2">
-                      We've received your RSVP and look forward to celebrating with you!
+                    <p
+                      className="font-goudy-italic mb-4 px-2 text-[0.75rem] sm:text-xs md:text-sm"
+                      style={{ color: palette.body }}
+                    >
+                      We&apos;ve received your RSVP and look forward to celebrating with you!
                     </p>
-                    <div className="bg-motif-cream/40 rounded-lg p-2.5 sm:p-3 md:p-4 border border-motif-deep/70 space-y-2 sm:space-y-2.5 md:space-y-3">
-                      <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 mb-1.5 sm:mb-2">
+                    <div
+                      className="space-y-2.5 rounded-lg border p-3 sm:space-y-3 sm:p-4"
+                      style={innerSurfaceStyle}
+                    >
+                      <div className="mb-1.5 flex items-center justify-center gap-2 sm:mb-2">
                         {selectedGuest?.RSVP === "Yes" && (
                           <>
-                            <CheckCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-green-600" />
-                            <span className="text-xs sm:text-sm md:text-base font-semibold text-green-600">
-                              You're Attending!
+                            <CheckCircle className="h-4 w-4 text-green-600 sm:h-5 sm:w-5" />
+                            <span className="font-goudy-italic text-xs font-semibold text-green-600 sm:text-sm">
+                              You&apos;re Attending!
                             </span>
                           </>
                         )}
                         {selectedGuest?.RSVP === "No" && (
                           <>
-                            <XCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-red-600" />
-                            <span className="text-xs sm:text-sm md:text-base font-semibold text-red-600">
+                            <XCircle className="h-4 w-4 text-red-600 sm:h-5 sm:w-5" />
+                            <span className="font-goudy-italic text-xs font-semibold text-red-600 sm:text-sm">
                               Unable to Attend
                             </span>
                           </>
                         )}
                       </div>
                       {selectedGuest?.RSVP === "Yes" && (
-                        <div className="bg-motif-cream/60 rounded-lg p-2 sm:p-2.5 md:p-3 border border-motif-deep/80">
+                        <div className="rounded-lg border p-2.5 sm:p-3" style={innerSurfaceStyle}>
                           <div className="text-center">
-                            <p className="text-[10px] sm:text-xs text-motif-medium mb-1 font-medium">Number of Guests</p>
-                            <p className="text-lg sm:text-xl md:text-2xl font-bold text-motif-deep">
+                            <p
+                              className="font-goudy-italic mb-1 text-[10px] font-medium sm:text-xs"
+                              style={{ color: palette.label }}
+                            >
+                              Number of Guests
+                            </p>
+                            <p
+                              className={`${theSeasons.className} text-lg sm:text-xl md:text-2xl`}
+                              style={{ color: palette.heading }}
+                            >
                               {selectedGuest.AllowedGuests || 1}
                             </p>
                           </div>
                         </div>
                       )}
                       {selectedGuest && selectedGuest.Message && selectedGuest.Message.trim() !== "" && (
-                        <div className="pt-1.5 sm:pt-2 border-t border-motif-deep/70">
-                          <p className="text-[10px] sm:text-xs text-motif-medium italic px-1">
-                            "{selectedGuest.Message}"
+                        <div className="border-t pt-2" style={{ borderColor: innerSurfaceStyle.borderColor }}>
+                          <p
+                            className="font-goudy-italic px-1 text-[10px] italic sm:text-xs"
+                            style={{ color: palette.body }}
+                          >
+                            &ldquo;{selectedGuest.Message}&rdquo;
                           </p>
                         </div>
                       )}
                     </div>
                     <button
                       onClick={handleCloseModal}
-                      className="mt-3 sm:mt-4 md:mt-6 !bg-motif-deep hover:!bg-motif-deep/90 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300"
+                      className={`${cinzel.className} mt-4 rounded-sm border px-6 py-2.5 text-[0.625rem] font-semibold uppercase tracking-[0.2em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:mt-5 sm:px-8 sm:py-3 sm:text-[0.6875rem] md:mt-6`}
+                      style={{
+                        backgroundColor: palette.accent,
+                        borderColor: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+                        color: "var(--color-welcome-bg)",
+                      }}
                     >
                       Close
                     </button>
@@ -700,10 +818,9 @@ export function GuestList() {
                     }}
                     className="space-y-2.5 sm:space-y-3 md:space-y-4"
                   >
-                    {/* Can you attend? */}
                     <div>
-                    <label className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-goudy-italic`}>
-                        <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                      <label className={modalLabelClass} style={{ color: palette.heading }}>
+                        <Sparkles className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                         <span>Can you attend? *</span>
                       </label>
                       <div className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3">
@@ -712,22 +829,32 @@ export function GuestList() {
                           onClick={() =>
                             setFormData((prev) => ({ ...prev, RSVP: "Yes", Guest: "1" }))
                           }
-                          className={`relative p-2 sm:p-2.5 md:p-3 lg:p-4 rounded-lg border-2 transition-all duration-300 ${
+                          className={`relative rounded-lg border-2 p-2 transition-all duration-300 sm:p-2.5 md:p-3 lg:p-4 ${
                             formData.RSVP === "Yes"
-                              ? "border-motif-deep bg-motif-deep/10 shadow-md scale-105"
-                              : "border-motif-deep/60 bg-white hover:border-motif-deep/70 hover:shadow-sm"
+                              ? "scale-[1.02] shadow-md"
+                              : "bg-white hover:shadow-sm"
                           }`}
+                          style={
+                            formData.RSVP === "Yes"
+                              ? {
+                                  borderColor: palette.accent,
+                                  backgroundColor:
+                                    "color-mix(in srgb, var(--color-welcome-green) 10%, white)",
+                                }
+                              : { borderColor: innerSurfaceStyle.borderColor }
+                          }
                         >
                           <div className="flex items-center justify-center gap-1.5 sm:gap-2">
                             <CheckCircle
-                              className={`h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 ${
-                                formData.RSVP === "Yes" ? "text-motif-deep" : "text-motif-medium/60"
-                              }`}
+                              className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5"
+                              style={{
+                                color:
+                                  formData.RSVP === "Yes" ? palette.accent : "var(--color-welcome-text-soft)",
+                              }}
                             />
                             <span
-                              className={`text-xs sm:text-sm font-bold ${
-                                formData.RSVP === "Yes" ? "text-motif-deep" : "text-motif-deep"
-                              }`}
+                              className="font-goudy-italic text-xs font-semibold sm:text-sm"
+                              style={{ color: palette.heading }}
                             >
                               Yes!
                             </span>
@@ -736,22 +863,23 @@ export function GuestList() {
                         <button
                           type="button"
                           onClick={() => setFormData((prev) => ({ ...prev, RSVP: "No" }))}
-                          className={`relative p-2 sm:p-2.5 md:p-3 lg:p-4 rounded-lg border-2 transition-all duration-300 ${
+                          className={`relative rounded-lg border-2 p-2 transition-all duration-300 sm:p-2.5 md:p-3 lg:p-4 ${
                             formData.RSVP === "No"
-                              ? "border-red-500 bg-red-50 shadow-md scale-105"
-                              : "border-motif-deep/60 bg-white hover:border-motif-deep/70 hover:shadow-sm"
+                              ? "scale-[1.02] border-red-500 bg-red-50 shadow-md"
+                              : "border-[color-mix(in_srgb,var(--color-motif-deep)_10%,transparent)] bg-white hover:shadow-sm"
                           }`}
                         >
                           <div className="flex items-center justify-center gap-1.5 sm:gap-2">
                             <XCircle
-                              className={`h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 ${
-                                formData.RSVP === "No" ? "text-red-600" : "text-motif-medium/60"
+                              className={`h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5 ${
+                                formData.RSVP === "No" ? "text-red-600" : "text-[color-mix(in_srgb,var(--color-welcome-text)_45%,transparent)]"
                               }`}
                             />
                             <span
-                              className={`text-xs sm:text-sm font-bold ${
-                                formData.RSVP === "No" ? "text-red-600" : "text-motif-deep"
+                              className={`font-goudy-italic text-xs font-semibold sm:text-sm ${
+                                formData.RSVP === "No" ? "text-red-600" : ""
                               }`}
+                              style={formData.RSVP !== "No" ? { color: palette.heading } : undefined}
                             >
                               Sorry, No
                             </span>
@@ -760,27 +888,43 @@ export function GuestList() {
                       </div>
                     </div>
 
-                    {/* Who's Coming With You - Companion Names */}
                     {formData.RSVP === "Yes" && companions.length > 0 && (
                       <div className="space-y-2.5 sm:space-y-3">
-                        <label className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep font-goudy-italic`}>
-                          <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
-                          <span>Who's Coming With You?</span>
+                        <label className={modalLabelClass} style={{ color: palette.heading }}>
+                          <Users className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
+                          <span>Who&apos;s Coming With You?</span>
                         </label>
-                        <p className="text-[10px] sm:text-xs text-motif-medium -mt-1 sm:-mt-1.5">
-                          Please provide names and relationships for your <span className="font-semibold">{companions.length}</span> additional {companions.length === 1 ? 'guest' : 'guests'}
+                        <p
+                          className="font-goudy-italic -mt-1 text-[10px] sm:-mt-1.5 sm:text-xs"
+                          style={{ color: palette.body }}
+                        >
+                          Please provide names and relationships for your{" "}
+                          <span className="font-semibold" style={{ color: palette.heading }}>
+                            {companions.length}
+                          </span>{" "}
+                          additional {companions.length === 1 ? "guest" : "guests"}
                         </p>
                         {companions.map((companion, index) => (
-                          <div key={index} className="bg-motif-cream/40 rounded-lg p-2 sm:p-2.5 md:p-3 border border-motif-deep/40 space-y-2 sm:space-y-2.5">
-                            <div className="flex items-center gap-1.5 mb-1 sm:mb-1.5">
-                              <User className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-motif-deep" />
-                              <span className="text-[10px] sm:text-xs font-semibold text-motif-deep">
+                          <div
+                            key={index}
+                            className="space-y-2 rounded-lg border p-2.5 sm:space-y-2.5 sm:p-3"
+                            style={innerSurfaceStyle}
+                          >
+                            <div className="mb-1 flex items-center gap-1.5 sm:mb-1.5">
+                              <User className="h-3 w-3 sm:h-3.5 sm:w-3.5" style={{ color: palette.accent }} />
+                              <span
+                                className="font-goudy-italic text-[10px] font-semibold sm:text-xs"
+                                style={{ color: palette.heading }}
+                              >
                                 Guest {index + 2}
                               </span>
                             </div>
                             <div className="space-y-1.5 sm:space-y-2">
                               <div>
-                                <label className="block text-[10px] sm:text-xs font-medium text-motif-deep mb-1">
+                                <label
+                                  className="font-goudy-italic mb-1 block text-[10px] font-medium sm:text-xs"
+                                  style={{ color: palette.label }}
+                                >
                                   Full Name
                                 </label>
                                 <input
@@ -792,23 +936,31 @@ export function GuestList() {
                                     setCompanions(newCompanions)
                                   }}
                                   placeholder={`Name of guest ${index + 2}`}
-                                  className="w-full px-2 sm:px-2.5 py-1.5 sm:py-2 border border-motif-deep/50 focus:border-motif-deep rounded text-[10px] sm:text-xs font-sans text-motif-deep placeholder:text-motif-medium/60 transition-all duration-300 focus:ring-1 focus:ring-motif-deep/20 bg-white"
+                                  className={modalInputClass}
+                                  style={modalInputStyle}
                                 />
                               </div>
                               <div>
-                                <label className="block text-[10px] sm:text-xs font-medium text-motif-deep mb-1">
-                                  Relationship with {selectedGuest?.Name || 'Primary Guest'}
+                                <label
+                                  className="font-goudy-italic mb-1 block text-[10px] font-medium sm:text-xs"
+                                  style={{ color: palette.label }}
+                                >
+                                  Relationship with {selectedGuest?.Name || "Primary Guest"}
                                 </label>
                                 <input
                                   type="text"
                                   value={companion.relationship}
                                   onChange={(e) => {
                                     const newCompanions = [...companions]
-                                    newCompanions[index] = { ...newCompanions[index], relationship: e.target.value }
+                                    newCompanions[index] = {
+                                      ...newCompanions[index],
+                                      relationship: e.target.value,
+                                    }
                                     setCompanions(newCompanions)
                                   }}
                                   placeholder="e.g., Spouse, Friend, Child, Parent"
-                                  className="w-full px-2 sm:px-2.5 py-1.5 sm:py-2 border border-motif-deep/50 focus:border-motif-deep rounded text-[10px] sm:text-xs font-sans text-motif-deep placeholder:text-motif-medium/60 transition-all duration-300 focus:ring-1 focus:ring-motif-deep/20 bg-white"
+                                  className={modalInputClass}
+                                  style={modalInputStyle}
                                 />
                               </div>
                             </div>
@@ -817,30 +969,32 @@ export function GuestList() {
                       </div>
                     )}
 
-                    {/* Message to the couple */}
                     <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans flex-wrap">
-  <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
-  <span>Song Request</span>
-  <span className="text-[10px] sm:text-xs font-normal text-motif-deep/70">(Optional)</span>
-</label>
-
-<input
-  type="text"
-  name="Message"
-  value={formData.Message}
-  onChange={handleFormChange}
-  placeholder="Share a song you'd love to hear on our special day 🎶"
-  className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
-/>
+                      <label className={modalLabelClass} style={{ color: palette.heading }}>
+                        <MessageSquare className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
+                        <span>Song Request</span>
+                        <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                          (Optional)
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="Message"
+                        value={formData.Message}
+                        onChange={handleFormChange}
+                        placeholder="Share a song you'd love to hear on our special day"
+                        className={modalInputClass}
+                        style={modalInputStyle}
+                      />
                     </div>
 
-                    {/* Email */}
                     <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans flex-wrap">
-                        <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                      <label className={modalLabelClass} style={{ color: palette.heading }}>
+                        <Mail className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                         <span>Your Email Address</span>
-                        <span className="text-[10px] sm:text-xs font-normal text-motif-deep/70">(Optional)</span>
+                        <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                          (Optional)
+                        </span>
                       </label>
                       <input
                         type="email"
@@ -848,16 +1002,40 @@ export function GuestList() {
                         value={formData.Email}
                         onChange={handleFormChange}
                         placeholder="your.email@example.com"
-                        className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
+                        className={modalInputClass}
+                        style={modalInputStyle}
                       />
                     </div>
 
-                    {/* Submit Button */}
+                    <div>
+                      <label className={modalLabelClass} style={{ color: palette.heading }}>
+                        <Phone className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
+                        <span>Phone Number</span>
+                        <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                          (Optional)
+                        </span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="Phone"
+                        value={formData.Phone}
+                        onChange={handleFormChange}
+                        placeholder="+63 912 345 6789"
+                        className={modalInputClass}
+                        style={modalInputStyle}
+                      />
+                    </div>
+
                     <div className="pt-2 sm:pt-3">
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full !bg-motif-deep hover:!bg-motif-deep/90 text-white py-2 sm:py-2.5 md:py-3 rounded-lg text-xs sm:text-sm font-semibold shadow-md transition-all duration-300 hover:shadow-lg disabled:opacity-70 flex items-center justify-center gap-1.5 sm:gap-2"
+                        className={`${cinzel.className} flex w-full items-center justify-center gap-1.5 rounded-sm border py-2.5 text-[0.625rem] font-semibold uppercase tracking-[0.2em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md disabled:opacity-70 sm:gap-2 sm:py-3 sm:text-[0.6875rem]`}
+                        style={{
+                          backgroundColor: palette.accent,
+                          borderColor: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+                          color: "var(--color-welcome-bg)",
+                        }}
                       >
                         {isLoading ? (
                           <>
@@ -893,58 +1071,68 @@ export function GuestList() {
 
         {/* RSVP Success — rendered outside RSVP modal to escape transform stacking context */}
         {success && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-5 sm:p-8 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
-            <div className="w-full max-w-xs animate-in zoom-in-95 duration-200">
-              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-
-                {/* Thin top bar */}
-                <div className="h-[3px] w-full bg-gradient-to-r from-motif-deep via-motif-soft to-motif-deep" />
-
-                <div className="px-6 pt-6 pb-6 text-center">
-
-                  {/* Check icon */}
-                  <div className="relative inline-flex items-center justify-center mb-4">
-                    <div className="absolute w-14 h-14 rounded-full bg-motif-soft/20 animate-ping" style={{ animationDuration: "2.5s" }} />
-                    <div className="relative w-12 h-12 rounded-full bg-motif-deep flex items-center justify-center shadow-md">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-5 backdrop-blur-md animate-in fade-in duration-200 sm:p-8">
+            <div className="w-full max-w-sm animate-in zoom-in-95 duration-200">
+              <div className="overflow-hidden rounded-2xl" style={modalCardStyle}>
+                <div
+                  aria-hidden
+                  className="h-[3px] w-full"
+                  style={{
+                    background:
+                      "linear-gradient(to right, transparent, var(--color-welcome-green), transparent)",
+                  }}
+                />
+                <div className="px-6 pb-6 pt-6 text-center">
+                  <div className="relative mb-4 inline-flex items-center justify-center">
+                    <div
+                      className="absolute h-14 w-14 animate-ping rounded-full"
+                      style={{
+                        animationDuration: "2.5s",
+                        backgroundColor: "color-mix(in srgb, var(--color-welcome-green) 20%, transparent)",
+                      }}
+                    />
+                    <div
+                      className="relative flex h-12 w-12 items-center justify-center rounded-full shadow-md"
+                      style={{ backgroundColor: palette.accent }}
+                    >
                       <CheckCircle className="h-6 w-6 text-white" strokeWidth={2} />
                     </div>
                   </div>
 
-                  {/* Title */}
-                  <h4 className={`${cinzel.className} text-base font-bold text-motif-deep tracking-widest uppercase mb-1`}>
+                  <h4
+                    className={`${theSeasons.className} mb-1 text-base uppercase tracking-[0.12em]`}
+                    style={{ color: palette.heading }}
+                  >
                     RSVP Confirmed
                   </h4>
 
-                  {/* Response subtitle */}
                   {formData.RSVP === "Yes" && (
-                    <p className={`font-goudy-italic text-sm text-motif-deep leading-snug`}>
+                    <p className="font-goudy-italic text-sm leading-snug" style={{ color: palette.body }}>
                       We&apos;re thrilled you&apos;ll be joining us — your spot is saved!
                     </p>
                   )}
                   {formData.RSVP === "No" && (
-                    <p className={`font-goudy-italic text-sm text-motif-deep leading-snug`}>
+                    <p className="font-goudy-italic text-sm leading-snug" style={{ color: palette.body }}>
                       We&apos;ll miss you, but thank you for letting us know.
                     </p>
                   )}
                   {!formData.RSVP && (
-                    <p className={`font-goudy-italic text-sm text-motif-deep leading-snug`}>
+                    <p className="font-goudy-italic text-sm leading-snug" style={{ color: palette.body }}>
                       Thank you for your response!
                     </p>
                   )}
 
-                  {/* Divider */}
-                  <div className="flex items-center gap-3 my-4">
-                    <div className="flex-1 h-px bg-motif-soft/70" />
-                    <Heart className="h-2.5 w-2.5 text-motif-soft flex-shrink-0" />
-                    <div className="flex-1 h-px bg-motif-soft/70" />
+                  <div className="my-4 flex items-center gap-3">
+                    <span className="h-px flex-1" style={dividerLineStyle} />
+                    <Heart className="h-2.5 w-2.5 flex-shrink-0" style={{ color: palette.accent }} />
+                    <span className="h-px flex-1" style={dividerLineStyle} />
                   </div>
 
-                  {/* Nudge text */}
-                  <p className={`font-goudy-italic text-sm text-motif-deep/65 leading-relaxed mb-4`}>
-                    Before you go, leave a message for the couple — your words will be a cherished memory they can always look back on.
+                  <p className="font-goudy-italic mb-4 text-sm leading-relaxed" style={{ color: palette.body }}>
+                    Before you go, leave a message for the couple — your words will be a cherished memory
+                    they can always look back on.
                   </p>
 
-                  {/* CTA */}
                   <a
                     href="#messages"
                     onClick={() => {
@@ -957,13 +1145,17 @@ export function GuestList() {
                         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
                       }, 100)
                     }}
-                    className={`${cinzel.className} inline-flex items-center justify-center gap-2 w-full bg-motif-deep hover:bg-motif-deep/90 active:scale-[0.98] text-white text-[10px] tracking-widest uppercase font-semibold py-3 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md mb-3`}
+                    className={`${cinzel.className} mb-3 inline-flex w-full items-center justify-center gap-2 rounded-sm border py-3 text-[10px] font-semibold uppercase tracking-[0.2em] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98]`}
+                    style={{
+                      backgroundColor: palette.accent,
+                      borderColor: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+                      color: "var(--color-welcome-bg)",
+                    }}
                   >
                     <MessageSquare className="h-3 w-3 flex-shrink-0" />
                     Leave a Message
                   </a>
 
-                  {/* Dismiss */}
                   <button
                     onClick={() => {
                       setSuccess(null)
@@ -971,11 +1163,11 @@ export function GuestList() {
                       setSearchQuery("")
                       setSelectedGuest(null)
                     }}
-                    className="text-motif-medium hover:text-motif-deep text-[11px] tracking-wide transition-colors duration-200"
+                    className="font-goudy-italic text-[11px] tracking-wide transition-colors duration-200"
+                    style={{ color: palette.body }}
                   >
                     Maybe later — close
                   </button>
-
                 </div>
               </div>
             </div>
@@ -984,45 +1176,87 @@ export function GuestList() {
 
         {/* Request to Join Modal */}
         {showRequestModal && (
-          <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-1 sm:p-2 md:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in"
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-1 backdrop-blur-sm animate-in fade-in sm:p-2 md:p-4"
             onClick={handleCloseRequestModal}
           >
-            <div 
-              className="relative w-full max-w-md sm:max-w-lg mx-1 sm:mx-2 md:mx-4 bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-motif-deep/80 overflow-hidden animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col"
+            <div
+              className="relative mx-1 flex max-h-[95vh] w-full max-w-md flex-col overflow-hidden rounded-xl animate-in zoom-in-95 duration-300 sm:mx-2 sm:max-w-lg sm:rounded-2xl md:mx-4"
+              style={modalCardStyle}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header with Gradient */}
-              <div className="relative bg-motif-deep p-3 sm:p-4 md:p-5 lg:p-6 flex-shrink-0">
-                <div className="relative flex items-start justify-between gap-1.5 sm:gap-2">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-1 sm:mb-1.5 md:mb-2 lg:mb-3">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm flex-shrink-0">
-                        <UserPlus className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-motif-deep" />
-                      </div>
-                      <h3 className={`${cinzel.className} text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-motif-cream truncate`}>
-                        Request to Join
-                      </h3>
-                    </div>
-                    <p className={`font-goudy-italic text-motif-cream/95 text-[10px] sm:text-xs md:text-sm lg:text-base font-sans leading-tight sm:leading-normal`}>
-                      {requestFormData.Name ? (
-                        <>Hi <span className="font-extrabold text-motif-cream">{requestFormData.Name}</span> — want to celebrate with us? Send a request!</>
-                      ) : (
-                        <>Want to celebrate with us? Send a request!</>
-                      )}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleCloseRequestModal}
-                    className="text-motif-deep/80 hover:text-motif-deep transition-colors p-0.5 sm:p-1 md:p-1.5 lg:p-2 hover:bg-white/20 rounded-full flex-shrink-0"
-                  >
-                    <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-motif-deep" />
-                  </button>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-5 top-0 h-px sm:inset-x-8"
+                style={{
+                  background:
+                    "linear-gradient(to right, transparent, var(--color-motif-yellow), transparent)",
+                }}
+              />
+
+              <div className="relative flex-shrink-0 px-4 pb-4 pt-5 text-center sm:px-6 sm:pb-5 sm:pt-6">
+                <button
+                  onClick={handleCloseRequestModal}
+                  className="absolute right-2 top-2 rounded-full p-1 transition-colors hover:bg-black/5 sm:right-3 sm:top-3 sm:p-1.5"
+                  style={{ color: palette.heading }}
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+
+                <div className="mx-auto mb-4 flex items-center justify-center gap-1.5 sm:mb-5">
+                  <span className="h-px w-6 sm:w-10" style={dividerLineStyle} />
+                  <UserPlus className="h-3 w-3 sm:h-3.5 sm:w-3.5" style={{ color: palette.accent }} aria-hidden />
+                  <span className="h-px w-6 sm:w-10" style={dividerLineStyle} />
                 </div>
+
+                <h3
+                  className="relative mx-auto w-full max-w-full text-center"
+                  style={
+                    {
+                      "--title-size": "clamp(1.45rem, 5vw, 2.25rem)",
+                      "--script-size": "clamp(1rem, 3.5vw, 1.65rem)",
+                      "--script-overlap": "clamp(-0.55rem, -2.2vw, -1rem)",
+                    } as CSSProperties
+                  }
+                >
+                  <span
+                    className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.15em]`}
+                    style={{ fontSize: "var(--title-size)", color: palette.heading }}
+                  >
+                    Request to Join
+                  </span>
+                  <span
+                    aria-hidden
+                    className={`${aboveTheBeyond.className} relative z-10 mx-auto block w-fit max-w-full px-1 leading-[0.88]`}
+                    style={{
+                      marginTop: "var(--script-overlap)",
+                      fontSize: "var(--script-size)",
+                      color: palette.accent,
+                      textShadow:
+                        "0 1px 0 color-mix(in srgb, var(--color-welcome-bg) 95%, white), 0 0 10px color-mix(in srgb, var(--color-welcome-bg) 65%, white)",
+                    }}
+                  >
+                    celebrate with us
+                  </span>
+                </h3>
+
+                <p
+                  className="font-goudy-italic mx-auto mt-4 max-w-md text-[0.75rem] leading-snug sm:mt-5 sm:text-[0.8125rem]"
+                  style={{ color: palette.body }}
+                >
+                  {requestFormData.Name ? (
+                    <>
+                      Hi <span style={{ color: palette.heading }}>{requestFormData.Name}</span> — want to
+                      celebrate with us? Send a request!
+                    </>
+                  ) : (
+                    <>Want to celebrate with us? Send a request!</>
+                  )}
+                </p>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-2.5 sm:p-3 md:p-4 lg:p-5 xl:p-6 overflow-y-auto flex-1 min-h-0">
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-5 md:px-7 md:pb-6">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault()
@@ -1030,10 +1264,9 @@ export function GuestList() {
                   }}
                   className="space-y-2.5 sm:space-y-3 md:space-y-4"
                 >
-                  {/* Name */}
                   <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans">
-                      <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                    <label className={modalLabelClass} style={{ color: palette.heading }}>
+                      <User className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                       <span>Full Name *</span>
                     </label>
                     <input
@@ -1043,16 +1276,18 @@ export function GuestList() {
                       onChange={(e) => setRequestFormData({ ...requestFormData, Name: e.target.value })}
                       required
                       placeholder="Enter your full name"
-                      className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
+                      className={modalInputClass}
+                      style={modalInputStyle}
                     />
                   </div>
 
-                  {/* Email */}
                   <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans flex-wrap">
-                      <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                    <label className={modalLabelClass} style={{ color: palette.heading }}>
+                      <Mail className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                       <span>Email Address</span>
-                      <span className="text-[10px] sm:text-xs font-normal text-motif-deep/70">(Optional)</span>
+                      <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                        (Optional)
+                      </span>
                     </label>
                     <input
                       type="email"
@@ -1060,31 +1295,33 @@ export function GuestList() {
                       value={requestFormData.Email}
                       onChange={(e) => setRequestFormData({ ...requestFormData, Email: e.target.value })}
                       placeholder="your.email@example.com"
-                      className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
+                      className={modalInputClass}
+                      style={modalInputStyle}
                     />
                   </div>
 
-                  {/* Phone */}
                   <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans flex-wrap">
-                      <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                    <label className={modalLabelClass} style={{ color: palette.heading }}>
+                      <Phone className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                       <span>Phone Number</span>
-                      <span className="text-[10px] sm:text-xs font-normal text-motif-deep/70">(Optional)</span>
+                      <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                        (Optional)
+                      </span>
                     </label>
                     <input
                       type="tel"
                       name="Phone"
                       value={requestFormData.Phone}
                       onChange={(e) => setRequestFormData({ ...requestFormData, Phone: e.target.value })}
-                      placeholder="+1 (555) 123-4567"
-                      className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
+                      placeholder="+63 912 345 6789"
+                      className={modalInputClass}
+                      style={modalInputStyle}
                     />
                   </div>
 
-                  {/* Number of Guests */}
                   <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans">
-                      <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                    <label className={modalLabelClass} style={{ color: palette.heading }}>
+                      <Users className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                       <span>Number of Guests *</span>
                     </label>
                     <input
@@ -1095,16 +1332,18 @@ export function GuestList() {
                       min="1"
                       required
                       placeholder="How many guests?"
-                      className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 bg-white"
+                      className={modalInputClass}
+                      style={modalInputStyle}
                     />
                   </div>
 
-                  {/* Message */}
                   <div>
-                    <label className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-motif-deep mb-1.5 sm:mb-2 font-sans flex-wrap">
-                      <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-motif-deep flex-shrink-0" />
+                    <label className={modalLabelClass} style={{ color: palette.heading }}>
+                      <MessageSquare className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4" style={{ color: palette.accent }} />
                       <span>Message</span>
-                        <span className="text-[10px] sm:text-xs font-normal text-motif-deep/70">(Optional)</span>
+                      <span className="text-[10px] font-normal sm:text-xs" style={{ color: palette.body }}>
+                        (Optional)
+                      </span>
                     </label>
                     <textarea
                       name="Message"
@@ -1112,16 +1351,21 @@ export function GuestList() {
                       onChange={(e) => setRequestFormData({ ...requestFormData, Message: e.target.value })}
                       placeholder="Share why you'd like to join..."
                       rows={3}
-                        className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-motif-deep/60 focus:border-motif-deep rounded-lg text-xs sm:text-sm font-sans text-motif-deep placeholder:text-motif-medium/70 transition-all duration-300 focus:ring-2 focus:ring-motif-deep/20 resize-none bg-white"
+                      className={`${modalInputClass} resize-none`}
+                      style={modalInputStyle}
                     />
                   </div>
 
-                  {/* Submit Button */}
                   <div className="pt-2 sm:pt-3">
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full !bg-motif-deep hover:!bg-motif-deep/90 text-white py-2 sm:py-2.5 md:py-3 rounded-lg text-xs sm:text-sm font-semibold shadow-md transition-all duration-300 hover:shadow-lg disabled:opacity-70 flex items-center justify-center gap-1.5 sm:gap-2"
+                      className={`${cinzel.className} flex w-full items-center justify-center gap-1.5 rounded-sm border py-2.5 text-[0.625rem] font-semibold uppercase tracking-[0.2em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md disabled:opacity-70 sm:gap-2 sm:py-3 sm:text-[0.6875rem]`}
+                      style={{
+                        backgroundColor: palette.accent,
+                        borderColor: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+                        color: "var(--color-welcome-bg)",
+                      }}
                     >
                       {isLoading ? (
                         <>

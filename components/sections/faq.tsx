@@ -131,10 +131,10 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
       question: "What time should I arrive for the ceremony?",
       answer: `Our ceremony will begin promptly at ${siteConfig.ceremony.time}. We kindly ask guests to arrive by ${guestArrival} to allow enough time for parking, walking to the ceremony area, and finding your seats so we can begin on time.`,
     },
-    {
-      question: "Where will the ceremony and reception take place?",
-      answer: `The ceremony will be held at ${siteConfig.ceremony.location}, ${siteConfig.ceremony.venue} at ${siteConfig.ceremony.time}. The reception will follow at ${siteConfig.reception.location}, ${siteConfig.reception.venue} at ${siteConfig.reception.time}. You can find detailed directions, addresses, and maps in the Event Details section above.`,
-    },
+    // {
+    //   question: "Where will the ceremony and reception take place?",
+    //   answer: `The ceremony will be held at ${siteConfig.ceremony.location}, ${siteConfig.ceremony.venue} at ${siteConfig.ceremony.time}. The reception will follow at ${siteConfig.reception.location}, ${siteConfig.reception.venue} at ${siteConfig.reception.time}. You can find detailed directions, addresses, and maps in the Event Details section above.`,
+    // },
     {
       question: "How do I RSVP?",
       answer: (

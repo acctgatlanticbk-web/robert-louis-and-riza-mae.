@@ -153,7 +153,7 @@ const attireGuide = {
     image: "/Details/sponsorsnew.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#3E5F7E", "#6F8FAF", "#AFC5D8", "#D8E4EC", "#FAF8F5"] as const,
+      colors: ["#3E5F7E", "#6F8FAF", "#AFC5D8"] as const,
       description: "Dusty Blue Long Gown",
     },
     gentlemen: {
@@ -165,24 +165,24 @@ const attireGuide = {
     image: "/Details/entourage.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#F7E89A", "#FFF8EE", "#EAD9B8", "#B8A68C"] as const,
+      colors: ["#ECCB62","#F6E490","#F9ECBF"] as const,
       description: "Butter Yellow Long Gown",
     },
     gentlemen: {
       colors: ["#C8CDD3", "#7EA2C5", "#5F7F9F", "#4A4F56", "#FFFFFF"] as const,
-      description: "Barong Tagalog and Pants",
+      description: "Gray Suit and Gray Pants with dusty necktie. ",
     },
   },
   guests: {
     image: "/Details/guest.png",
     imageAspect: "677/369",
     ladies: {
-      colors: ["#E6D3B3", "#C9B49A", "#7F9A7A", "#556B5D", "#6A4A3C", "#8A6B5A", "#F8F4EE", "#DCCFC3"] as const,
+      colors: ["#E6D3B3", "#C9B49A", "#7F9A7A", "#6A4A3C", "#8A6B5A", "#DCCFC3"] as const,
       description: "Champagne Gold, Chocolate Brown, Beige and Sage Green Long Dress",
     },
     gentlemen: {
       colors: ["#1A1A1A", "#FFFFFF", "#4A4A4A", "#C9CDD2", "#F8F6F2"] as const,
-      description: "Black Suit without Tie",
+      description: "Black suit and white inner without tie and Black Pants ",
     },
   },
 } as const

@@ -40,9 +40,9 @@ export const siteConfig = {
   },
   details: {
     rsvp: {
-      deadline: "August 1, 2026",
-      coordinator: "Gayle Kathleen Asoy Gable",
-      phone: "+63 965 490 6240",
+      deadline: "August 18, 2026",
+      coordinator: "GO Events",
+      phone: "0916 872 7621",
     },
   },
   contact: {
@@ -52,16 +52,16 @@ export const siteConfig = {
   },
   giftRegistry: {
     QR_1:{
-    id: "BPI",
-    src: "/QR/pleaseProvideQR.png",
-    label: "BPI",
-    accountNumber: "Please Provide QR",
+    id: "Gcash",
+    src: "/QR/Gcash.png",
+    label: "Gcash",
+    accountNumber: "JO***T R** D. : 0945 658 ****",
     },
     QR_2:{
-    id: "Zelle",
-    src: "/QR/pleaseProvideQR.png",
-    label: "Zelle",
-    accountNumber: "Please Provide QR",
+    id: "BDO",
+    src: "/QR/BDO.png",
+    label: "BDO",
+    accountNumber: "JOPERTKATH : *******1785",
     }
   },
   ceremony: {
