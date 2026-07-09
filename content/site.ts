@@ -86,7 +86,7 @@ export const siteConfig = {
   },
   dressCode: {
       theme: "STRICTLY FORMAL",
-    colors: "#BBCED5, #B9C3A8, #F3D8C5, #D1C4D4, #ECD8BA, #F4E8D8, #E1DCCF",
+    colors: "#C3878C, #ECB4BC, #EBA7B3, #E8B3A7",
     sponsors: {
       photo: "/Details/sponsors-new.png",
       male: "Barong and Black Pants",
