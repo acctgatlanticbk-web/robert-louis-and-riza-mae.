@@ -108,16 +108,16 @@ function GalleryTitle() {
 }
 
 const galleryItems = [
-  { image: "/mobile-background/couple (1).webp", text: " " },
-  { image: "/mobile-background/couple (2).webp", text: " " },
-  { image: "/mobile-background/couple (3).webp", text: " " },
-  { image: "/mobile-background/couple (4).webp", text: " " },
-  { image: "/mobile-background/couple (5).webp", text: " " },
-  { image: "/mobile-background/couple (6).webp", text: " " },
-  { image: "/mobile-background/couple (7).webp", text: " " },
-  { image: "/mobile-background/couple (8).webp", text: " " },
-  { image: "/mobile-background/couple (9).webp", text: " " },
-  { image: "/mobile-background/couple (10).webp", text: " " },
+  { image: "/mobile-background/couples (1).webp", text: " " },
+  { image: "/mobile-background/couples (2).webp", text: " " },
+  { image: "/mobile-background/couples (3).webp", text: " " },
+  { image: "/mobile-background/couples (4).webp", text: " " },
+  { image: "/mobile-background/couples (5).webp", text: " " },
+  { image: "/mobile-background/couples (6).webp", text: " " },
+  { image: "/mobile-background/couples (7).webp", text: " " },
+  { image: "/mobile-background/couples (8).webp", text: " " },
+  { image: "/mobile-background/couples (9).webp", text: " " },
+  { image: "/mobile-background/couples (10).webp", text: " " },
 
 
 ]
@@ -213,7 +213,7 @@ export function Gallery() {
       <div className="pointer-events-none absolute left-0 top-0 z-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/decoration/decoration/left-top-decoration.png"
+          src="/decoration/left-top-decoration.png"
           alt=""
           className={CORNER_DECO_CLASS}
         />
@@ -221,7 +221,7 @@ export function Gallery() {
       <div className="pointer-events-none absolute right-0 top-0 z-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/decoration/decoration/right-top-decoration.png"
+          src="/decoration/right-top-decoration.png"
           alt=""
           className={CORNER_DECO_CLASS}
         />
@@ -229,7 +229,7 @@ export function Gallery() {
       <div className="pointer-events-none absolute bottom-0 left-0 z-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/decoration/decoration/left-bottom-decoration%20(2).png"
+          src="/decoration/left-bottom-decoration.png"
           alt=""
           className={CORNER_DECO_CLASS}
         />
@@ -237,7 +237,7 @@ export function Gallery() {
       <div className="pointer-events-none absolute bottom-0 right-0 z-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/decoration/decoration/right-bottom-decoration%20(2).png"
+          src="/decoration/right-bottom-decoration.png"
           alt=""
           className={CORNER_DECO_CLASS}
         />

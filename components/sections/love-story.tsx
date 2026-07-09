@@ -67,7 +67,7 @@ function LoveStoryTitle() {
           color: "var(--color-welcome-navy)",
         }}
       >
-        Our Love Story
+        Celebration of Love
       </span>
       <span
         aria-hidden
@@ -80,9 +80,9 @@ function LoveStoryTitle() {
             "0 1px 0 color-mix(in srgb, var(--color-welcome-bg) 95%, white), 0 0 10px color-mix(in srgb, var(--color-welcome-bg) 65%, white)",
         }}
       >
-        Where It All Began
+        Join us as we say 'I do'
       </span>
-      <span className="sr-only">Where It All Began</span>
+      <span className="sr-only">Join us as we say 'I do'</span>
     </h1>
   )
 }
@@ -97,7 +97,15 @@ export function LoveStory() {
         <div className="pointer-events-none absolute right-0 top-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/right-top-decoration.png"
+            src="/decoration/right-top-decoration.png"
+            alt=""
+            className={CORNER_DECO_CLASS}
+          />
+        </div>
+        <div className="pointer-events-none absolute left-0 top-0 z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/decoration/left-top-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -120,103 +128,136 @@ export function LoveStory() {
       </div>
 
       <StorySection
-        theme="light"
-        layout="image-left"
-        isFirst={true}
-        title="A Simple Message, A Beautiful Beginning"
-        imageSrc="/mobile-background/couple (13).webp"
-        text={
-          <>
-            <p className="mb-4">
-            Sometimes, the most beautiful things begin with the simplest message.
-            </p>
-            <p className="mb-4">
-            It all started with an Instagram Direct Message.
-            </p>
-          </>
-        }
-      />
+  theme="light"
+  layout="image-left"
+  isFirst={true}
+  title="You are Invited to Celebrate With Us"
+  imageSrc="/mobile-background/couples (23).webp"
+  text={
+    <>
+      <p className="mb-4">
+      Some moments are meant to be shared with the people who matter most.
+      </p>
+      <p className="mb-4">
+      We're getting married on December 12, 2026, and we would be truly honored to have you there with us.
+      </p>
+    </>
+  }
+/>
 
-      <StorySection
-        theme="dark"
-        layout="image-right"
-        imageSrc="/mobile-background/couple (18).webp"
-        title="From Conversations to Something More"
-        text={
-          <>
-            <p className="mb-4">
-            Every message we exchanged brought us closer together.
-            </p>
-            <p className="mb-4">
-            Every messages we exchange, we felt a rare and beautiful connection—one that has grown into a love filled with laughter, late-night long distance talks, and unforgettable memories.
-            </p>
-          </>
-        }
-      />
+<StorySection
+  theme="dark"
+  layout="image-right"
+  imageSrc="/mobile-background/couples (20).webp"
+  title="For Being Here With Us"
+  text={
+    <>
+      <p className="mb-4">
+      Some celebrations are only truly complete with loved ones near.
+      </p>
+      <p className="mb-4">
+      Whether you're traveling far or coming from just around the corner, your presence will make this day all the more meaningful.
+      </p>
+    </>
+  }
+/>
 
-      <StorySection
-        theme="light"
-        layout="image-left"
-        imageSrc="/mobile-background/couple (7).webp"
-        title="Love Across the Distance"
-        text={
-          <>
-            <p>
-            Distance has never diminished the love we share.
-            </p>
-            <p className="mb-4">
-Our love story continues in a long distance relationship, Jopert in the United Kingdom and Kathleen here in the Philippines.
-            </p>
-            <p className="mb-4">
-But in every season, we have celebrated life's joys and faced challenges hand in hand, learning that love is built in both the grand moments and the quiet everyday ones.
-            </p>
-          </>
-        }
-      />
+<StorySection
+  theme="light"
+  layout="image-left"
+  imageSrc="/mobile-background/couples (8).webp"
+  title="For the Love and Support"
+  text={
+    <>
+      <p>
+      We would not be who we are without the people who lifted us along the way.
+      </p>
+      <p className="mb-4">
+      To our families and friends, thank you for your guidance, encouragement, and love that carried us to this moment.
+      </p>
+      <p className="mb-4">
+      Every kind word, every gesture of support, has shaped this day in ways words can hardly capture.
+      </p>
+    </>
+  }
+/>
 
-      <StorySection
-        theme="dark"
-        layout="image-right"
-        imageSrc="/mobile-background/couple (8).webp"
-        title="Beginning Our Greatest Chapter"
-        text={
-          <>
-            <p>
-            Today, our love becomes a lifelong promise.
-            </p>
-            <p className="mb-4">
-Now, as we begin this new chapter as husband and wife, our vows are a promise to place love at the heart of our marriage.
-            </p>
-          </>
-        }
-      />
+<StorySection
+  theme="dark"
+  layout="image-right"
+  imageSrc="/mobile-background/couples (10).webp"
+  title="Becoming Family"
+  text={
+    <>
+      <p>
+      This day isn't just about the two of us—it's about all of us.
+      </p>
+      <p className="mb-4">
+      To both of our families coming together, thank you for welcoming us with open arms. We're honored to now call each other family.
+      </p>
+    </>
+  }
+/>
 
-      <StorySection
-        theme="light"
-        layout="image-left"
-        isLast={true}
-        imageSrc="/mobile-background/couple (11).webp"
-        title="Our Story Becomes Even More Beautiful"
-        text={
-          <>
-            <p>
-            Your presence completes this unforgettable moment.
-            </p>
-            <p className="mb-4">
-Having you here to witness and celebrate with us makes this moment truly complete.
-            </p>
-          </>
-        }
-      />
+<StorySection
+  theme="light"
+  layout="image-left"
+  isLast={true}
+  imageSrc="/mobile-background/couples (16).webp"
+  title="Mark Your Calendars"
+  text={
+    <>
+      <p>
+      December 12, 2026 will be a day we'll always treasure.
+      </p>
+      <p className="mb-4">
+      We can't wait to celebrate this milestone surrounded by the people we love most—thank you for being one of them.
+      </p>
+    </>
+  }
+/>
+<StorySection
+  theme="dark"
+  layout="image-right"
+  imageSrc="/mobile-background/couples (5).webp"
+  title="With Gratitude, Always"
+  text={
+    <>
+      <p>
+      Words can only say so much, but our gratitude runs deep.
+      </p>
+      <p className="mb-4">
+      Thank you for your love, your blessings, and for being part of our lives on this special day. We carry your presence with us always.
+      </p>
+    </>
+  }
+/>
 
-      <div
+<StorySection
+  theme="light"
+  layout="image-left"
+  isLast={true}
+  imageSrc="/mobile-background/couples (6).webp"
+  title="Thank You for Being Part of Our Family"
+  text={
+    <>
+      <p>
+      Every celebration is made richer by the people who show up for it.
+      </p>
+      <p className="mb-4">
+      Thank you, from the bottom of our hearts, for being here, for your love, and for being part of our family.
+      </p>
+    </>
+  }
+/>
+<div
         className="relative px-4 pb-16 pt-8 text-center sm:pb-20 sm:pt-10 md:pb-24 md:pt-12"
         style={{ background: "var(--color-welcome-bg)" }}
       >
         <div className="pointer-events-none absolute bottom-0 left-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/left-bottom-decoration%20(2).png"
+            src="/decoration/left-bottom-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -224,7 +265,7 @@ Having you here to witness and celebrate with us makes this moment truly complet
         <div className="pointer-events-none absolute bottom-0 right-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/right-bottom-decoration%20(2).png"
+            src="/decoration/right-bottom-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />

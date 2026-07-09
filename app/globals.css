@@ -139,31 +139,31 @@
 
   /* ─── Motif palette — edit here, affects every component ─── */
   /* Background */
-  --color-motif-cream:   #FAE6C3; /* Warm Champagne Cream */
+  --color-motif-cream:   #FFF9F8; /* text couple and the background section */
 
   /* Primary Highlight */
-  --color-motif-yellow:  #F8E086; /* Soft Golden Yellow */
+  --color-motif-yellow:  #F9E8DC; /* nothing changes see */
 
   /* Secondary */
-  --color-motif-soft:    #A7D4F5; /* Dusty Sky Blue */
-  --color-motif-accent:  #808874; /* Dusty Blue */
+  --color-motif-soft:    #F7DCE2; /* nothing changes see*/
+  --color-motif-accent:  #CDA5AF; /* nothing changes see */
 
   /* Primary Brand */
-  --color-motif-deep:    #7BACD4; /* Primary Dusty Blue */
-  --color-motif-medium:  #808874; /* Light Dusty Blue */
+  --color-motif-deep:    #9F6B78; /* Navbar background. */
+  --color-motif-medium:  #E8CDD2; /* just a line below the navbar border  */
 
   /* Neutral */
-  --color-motif-silver:  #F4EFD9; /* Soft Champagne White */
+  --color-motif-silver:  #FDFBFA; /* nothing changes see  */
 
-  /* Welcome section — readable on whitened cream */
-  --color-welcome-bg:        color-mix(in srgb, var(--color-motif-cream) 38%, white);
-  --color-welcome-bg-soft:   color-mix(in srgb, var(--color-motif-cream) 22%, white);
-  --color-welcome-text:      #3A3530;
-  --color-welcome-text-soft: #5A534C;
-  --color-welcome-heading:   #2A4560;
-  --color-welcome-script:    #3D5A72;
-  --color-welcome-navy:      #1E3A5F;
-  --color-welcome-green:     #2F6B4F;
+  /* Welcome section */
+  --color-welcome-bg:        color-mix(in srgb, var(--color-motif-cream) 38%, white); /* background color */
+  --color-welcome-bg-soft:   color-mix(in srgb, var(--color-motif-cream) 22%, white); /* background color */
+  --color-welcome-text:      #55494D; /* color to change paragraph text  */
+  --color-welcome-text-soft: #86787C;  /* nothing changes see */
+  --color-welcome-heading:   #9F6B78; /* color to change heading text but the smaller one. */
+  --color-welcome-script:    #B88793; /* nothing changes see */
+  --color-welcome-navy:      #724A56; /* color to change BIG HEADER  */
+  --color-welcome-green:     #D88FA1; /* avatar, button and below header */
   /* ─────────────────────────────────────────────────────────── */
   --font-imperial-script: "Imperial Script", cursive;
   --font-beautiful-malera: "Beautiful Malera", cursive;

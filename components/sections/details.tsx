@@ -61,7 +61,7 @@ const softPanelStyle = {
   backgroundColor: "var(--color-welcome-bg-soft)",
 } as const
 
-const QR_FG = "#1E3A5F"
+const QR_FG = "var(--color-motif-deep)"
 const QR_BG = "#FAF7F2"
 
 function SectionIconDivider({ icon }: { icon: React.ReactNode }) {
@@ -113,7 +113,7 @@ function DetailsTitle() {
         style={{
           marginTop: "var(--script-overlap)",
           fontSize: "var(--script-size)",
-          color: "var(--color-welcome-green)",
+          color: "var(--color-motif-accent)",
           textShadow:
             "0 1px 0 color-mix(in srgb, var(--color-welcome-bg) 95%, white), 0 0 10px color-mix(in srgb, var(--color-welcome-bg) 65%, white)",
         }}
@@ -150,39 +150,51 @@ const ct = {
 
 const attireGuide = {
   sponsors: {
-    image: "/Details/sponsorsnew.png",
+    image: "/Details/sponsors.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#3E5F7E", "#6F8FAF", "#AFC5D8"] as const,
-      description: "Dusty Blue Long Gown",
+      colors: ["#C3878C"] as const,
+      description: "Elegant dusty rose gowns",
     },
     gentlemen: {
-      colors: ["#E7D8C5", "#D6C2A8", "#3B3B3B", "#161616"] as const,
-      description: "Barong Tagalog and Black Pants",
+      colors: ["#000000", "#FFFFFF","#C3878C"] as const,
+      description: "Black suits with black pants, paired with dusty rose neckties",
     },
   },
   entourage: {
-    image: "/Details/entourage.png",
+    image: "/Details/entourage (4).png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#ECCB62","#F6E490","#F9ECBF"] as const,
-      description: "Butter Yellow Long Gown",
+      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
+      description: "Dusty Rose, Blush Pink, Rose Pink, Peach",
     },
     gentlemen: {
-      colors: ["#C8CDD3", "#7EA2C5", "#5F7F9F", "#4A4F56", "#FFFFFF"] as const,
-      description: "Grey suit with grey trouser and Dusty blues necktie.",
+      colors: ["#000000", "#FFFFFF"] as const,
+      description: "Black and White and ribbon tie",
     },
   },
   guests: {
-    image: "/Details/guest.png",
+    image: "/Details/guestAttire.png",
     imageAspect: "677/369",
     ladies: {
-      colors: ["#E6D3B3", "#C9B49A", "#7F9A7A", "#6A4A3C", "#8A6B5A", "#DCCFC3"] as const,
-      description: "Champagne Gold, Chocolate Brown, Beige and Sage Green Long Dress",
+      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
+      description: "Dusty Rose, Blush Pink ",
     },
     gentlemen: {
-      colors: ["#1A1A1A", "#FFFFFF", "#4A4A4A", "#C9CDD2", "#F8F6F2"] as const,
-      description: "Black suit with black trousers (no necktie required) ",
+      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
+      description: "Semi Formal Attire",
+    },
+  },
+  guests2: {
+    image: "/Details/guest (5).png",
+    imageAspect: "677/369",
+    ladies: {
+      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
+      description: "Burgundy, Maroon, Dark Brown",
+    },
+    gentlemen: {
+      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
+      description: "Burgundy, Maroon, Dark Brown",
     },
   },
 } as const
@@ -204,6 +216,88 @@ function ColorPalette({ colors }: { colors: readonly string[] }) {
           title={color}
         />
       ))}
+    </div>
+  )
+}
+
+function CoupleImagesCarousel({
+  coupleImages,
+  currentImageIndex,
+  rotationOffset,
+}: {
+  coupleImages: string[]
+  currentImageIndex: number
+  rotationOffset: number
+}) {
+  return (
+    <div className="mb-4 flex justify-center gap-2 sm:mb-5 sm:gap-2.5">
+      {coupleImages.map((image, index) => {
+        const isActive = index === currentImageIndex
+        const baseRotation = index === 0 ? -5 : index === 1 ? 5 : index === 2 ? -3 : 3
+        const currentRotation = isActive
+          ? baseRotation + Math.sin((rotationOffset * Math.PI) / 180) * 2
+          : baseRotation
+        const scale = isActive ? "scale(1.1)" : "scale(1)"
+        const itemClass = `relative h-14 w-14 overflow-hidden rounded-lg border-2 shadow-md transition-all duration-700 ease-in-out sm:h-16 sm:w-16 ${isActive ? "z-10 scale-110" : "scale-100 opacity-70"}`
+        const imgClass = `object-cover transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-70"}`
+
+        return (
+          <div
+            key={image}
+            className={itemClass}
+            style={{
+              transform: `rotate(${currentRotation}deg) ${scale}`,
+              borderColor: "color-mix(in srgb, var(--color-motif-deep) 20%, transparent)",
+            }}
+          >
+            <Image
+              src={image}
+              alt={`Wedding couple ${index + 1}`}
+              fill
+              className={imgClass}
+              sizes="(max-width: 640px) 56px, 64px"
+            />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function ReminderCard({
+  title,
+  children,
+  variant = "soft",
+}: {
+  title: string
+  children: ReactNode
+  variant?: "soft" | "accent"
+}) {
+  const panelStyle =
+    variant === "accent"
+      ? {
+          borderColor: "color-mix(in srgb, var(--color-motif-deep) 14%, transparent)",
+          backgroundColor: "color-mix(in srgb, var(--color-welcome-bg-soft) 85%, var(--color-motif-cream))",
+        }
+      : softPanelStyle
+
+  return (
+    <div
+      className="rounded-xl border p-4 shadow-sm sm:rounded-2xl sm:p-5"
+      style={panelStyle}
+    >
+      <h4
+        className={`${cinzel.className} ${ct.reminderHead} mb-2 font-semibold uppercase tracking-[0.08em] sm:mb-2.5`}
+        style={{ color: detailText.heading }}
+      >
+        {title}
+      </h4>
+      <div
+        className={`font-goudy-italic ${ct.reminderBody} leading-relaxed`}
+        style={{ color: detailText.body }}
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -356,40 +450,51 @@ function EventVenueCard({
         style={cardStyle}
       >
         <div className="relative w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[30rem] overflow-hidden">
-          {images.map((src, index) => {
-            const isActive = index === activeImageIndex
-            return (
-              <div
-                key={index}
-                className={`absolute inset-0 transition-[opacity,transform] duration-[1600ms] ease-[cubic-bezier(0.45,0.05,0.55,0.95)] ${
-                  isActive
-                    ? "opacity-100 scale-100 z-10"
-                    : "opacity-0 scale-[1.06] z-0 pointer-events-none"
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt={locationName}
-                  fill
-                  className={`object-cover transition-transform duration-[9000ms] ease-out ${
-                    isActive ? "scale-[1.08] group-hover:scale-[1.12]" : "scale-100"
+          {images.length === 1 ? (
+            <Image
+              src={images[0]}
+              alt={locationName}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
+              priority
+            />
+          ) : (
+            images.map((src, index) => {
+              const isActive = index === activeImageIndex
+              return (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-[opacity,transform] duration-[1600ms] ease-[cubic-bezier(0.45,0.05,0.55,0.95)] ${
+                    isActive
+                      ? "opacity-100 scale-100 z-10"
+                      : "opacity-0 scale-[1.06] z-0 pointer-events-none"
                   }`}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
-                  priority={index === 0}
-                />
-              </div>
-            )
-          })}
+                >
+                  <Image
+                    src={src}
+                    alt={locationName}
+                    fill
+                    className={`object-cover transition-transform duration-[9000ms] ease-out ${
+                      isActive ? "scale-[1.08] group-hover:scale-[1.12]" : "scale-100"
+                    }`}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
+                    priority={index === 0}
+                  />
+                </div>
+              )
+            })
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-20 pointer-events-none" />
 
           <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 right-3 sm:right-4 md:right-6 z-30">
             <span className={`${cinzel.className} inline-block mb-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white border border-white/30`}>
               {badge}
             </span>
-            <h3 className={`${theSeasons.className} text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-white mb-1 sm:mb-1.5 drop-shadow-lg uppercase tracking-[0.12em] leading-tight`}>
+            <h3 className={`${theSeasons.className} text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-1.5 drop-shadow-lg uppercase tracking-[0.12em] leading-tight`}>
               {locationName}
             </h3>
-            <p className={`${theSeasons.className} text-xs sm:text-sm md:text-base lg:text-lg text-white/95 drop-shadow-md tracking-[0.06em] leading-snug`}>
+            <p className={`${theSeasons.className} text-[10px] sm:text-xs md:text-sm lg:text-base text-white/95 drop-shadow-md tracking-[0.06em] leading-snug`}>
               {venueAddress}
             </p>
           </div>
@@ -449,15 +554,15 @@ function EventVenueCard({
                 <p className={`${cinzel.className} ${ct.label} font-semibold mb-1.5 sm:mb-2 uppercase tracking-wide`} style={{ color: detailText.label }}>
                   {venueSectionLabel}
                 </p>
-                <p className={`${theSeasons.className} text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-snug tracking-[0.06em] uppercase`} style={{ color: detailText.heading }}>
+                <p className={`${theSeasons.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold leading-snug tracking-[0.06em] uppercase`} style={{ color: detailText.heading }}>
                   {locationName}
                 </p>
                 {venueDetail && (
-                  <p className={`${theSeasons.className} ${ct.bodyMd} leading-relaxed mt-1 tracking-wide`} style={{ color: detailText.label }}>
+                  <p className={`${theSeasons.className} ${ct.body} leading-relaxed mt-1 tracking-wide`} style={{ color: detailText.label }}>
                     {venueDetail}
                   </p>
                 )}
-                <p className={`${theSeasons.className} text-sm sm:text-base md:text-lg leading-relaxed mt-1 tracking-[0.04em]`} style={{ color: detailText.body }}>
+                <p className={`${theSeasons.className} ${ct.body} leading-relaxed mt-1 tracking-[0.04em]`} style={{ color: detailText.body }}>
                   {venueAddress}
                 </p>
               </div>
@@ -538,49 +643,51 @@ function EventVenueCard({
 
 // Colors sourced from globals.css @theme inline — edit there to update everywhere
 
+const COUPLE_IMAGES = [
+  "/gallery-design/boxes (1).jpg",
+  "/gallery-design/boxes (2).jpg",
+  "/gallery-design/boxes (3).jpg",
+  "/gallery-design/Phones.jpg",
+]
+
 export function Details() {
   const siteConfig = useSiteConfig()
   const [copiedItems, setCopiedItems] = useState<Set<string>>(new Set())
   const [currentCeremonyImageIndex, setCurrentCeremonyImageIndex] = useState(0)
-  // const [currentReceptionImageIndex, setCurrentReceptionImageIndex] = useState(0)
+  const [currentReceptionImageIndex, setCurrentReceptionImageIndex] = useState(0)
   const [showImageModal, setShowImageModal] = useState<string | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [rotationOffset, setRotationOffset] = useState(0)
-  
-  const coupleImages = [
-    "/gallery-design/box (1).jpg",
-    "/gallery-design/box (2).jpg",
-    "/gallery-design/box (3).jpg",
-    "/gallery-design/mobile (3).jpg",
-  ]
 
   const ceremonyImages = siteConfig.ceremony.image
-  // const receptionImages = siteConfig.reception.image
+  const receptionImages = siteConfig.reception.image
   const dressCodeColors = siteConfig.dressCode.colors.split(",").map((color) => color.trim())
 
   useEffect(() => {
+    if (ceremonyImages.length <= 1) return
     const timer = setInterval(() => {
       setCurrentCeremonyImageIndex((prev) => (prev + 1) % ceremonyImages.length)
     }, 4500)
     return () => clearInterval(timer)
   }, [ceremonyImages.length])
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentReceptionImageIndex((prev) => (prev + 1) % receptionImages.length)
-  //   }, 3000)
-  //   return () => clearInterval(timer)
-  // }, [receptionImages.length])
+  useEffect(() => {
+    if (receptionImages.length <= 1) return
+    const timer = setInterval(() => {
+      setCurrentReceptionImageIndex((prev) => (prev + 1) % receptionImages.length)
+    }, 4500)
+    return () => clearInterval(timer)
+  }, [receptionImages.length])
 
   // Gentle reminders couple photos — subtle carousel + wobble animation
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % coupleImages.length)
+      setCurrentImageIndex((prev) => (prev + 1) % COUPLE_IMAGES.length)
       setRotationOffset((prev) => (prev + 10) % 360)
     }, 2600)
 
     return () => clearInterval(interval)
-  }, [coupleImages.length])
+  }, [])
 
   const copyToClipboard = async (text: string, itemId: string) => {
     try {
@@ -639,7 +746,7 @@ export function Details() {
         <div className="pointer-events-none absolute left-0 top-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/left-top-decoration.png"
+            src="/decoration/left-top-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -647,7 +754,7 @@ export function Details() {
         <div className="pointer-events-none absolute right-0 top-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/right-top-decoration.png"
+            src="/decoration/right-top-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -655,7 +762,7 @@ export function Details() {
         <div className="pointer-events-none absolute bottom-0 left-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/left-bottom-decoration%20(2).png"
+            src="/decoration/left-bottom-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -663,7 +770,7 @@ export function Details() {
         <div className="pointer-events-none absolute bottom-0 right-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/right-bottom-decoration%20(2).png"
+            src="/decoration/right-bottom-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />
@@ -701,7 +808,7 @@ export function Details() {
       {/* Venue and Event Information */}
       <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 md:px-8 mb-8 sm:mb-10 md:mb-12 space-y-6 sm:space-y-10 md:space-y-14">
         <EventVenueCard
-          badge="Ceremony and Reception"
+          badge="Ceremony"
           images={ceremonyImages}
           activeImageIndex={currentCeremonyImageIndex}
           locationName={ceremonyVenueName}
@@ -710,7 +817,7 @@ export function Details() {
           day={siteConfig.ceremony.day}
           dateString={siteConfig.ceremony.date}
           time={siteConfig.ceremony.time}
-          venueSectionLabel="Ceremony & Reception Venue"
+          venueSectionLabel="Ceremony Venue"
           mapsLink={ceremonyMapsLink}
           copyId="ceremony"
           fullVenue={ceremonyVenue}
@@ -719,7 +826,6 @@ export function Details() {
           onOpenMaps={openInMaps}
         />
 
-        {/* Reception card — hidden for now; ceremony covers both events
         <EventVenueCard
           badge="Reception"
           images={receptionImages}
@@ -739,7 +845,7 @@ export function Details() {
           onCopy={copyToClipboard}
           onOpenMaps={openInMaps}
         />
-        */}
+       
       </div>
 
       {/* Attire Guidelines */}
@@ -768,13 +874,13 @@ export function Details() {
           </p>
         </div>
 
-        {/* Attire cards — Sponsors, Entourage & Guests */}
-        <div className="mb-6 grid grid-cols-1 items-start gap-6 sm:mb-8 sm:gap-8 md:mb-10 lg:grid-cols-3">
+        {/* Attire cards — Bridal Party, Principal Sponsors & Guests */}
+        <div className="mb-6 grid grid-cols-1 items-start gap-6 sm:mb-8 sm:gap-8 md:mb-10 sm:grid-cols-2 lg:grid-cols-3">
           <AttireCard
-            title="Sponsors"
+            title="Principal Sponsors"
             image={attireGuide.sponsors.image}
             imageAspect={attireGuide.sponsors.imageAspect}
-            alt="Principal sponsor attire guide"
+            alt="Bridal party attire guide"
           >
             <div className="grid grid-cols-1 gap-5 sm:gap-6">
               <AttirePaletteGroup
@@ -814,7 +920,7 @@ export function Details() {
             title="Guests"
             image={attireGuide.guests.image}
             imageAspect={attireGuide.guests.imageAspect}
-            alt="Guest attire guide"
+            alt="Guests attire guide"
           >
             <div className="grid grid-cols-1 gap-5 sm:gap-6">
               <AttirePaletteGroup
@@ -852,108 +958,74 @@ export function Details() {
         </div> */}
 
         {/* Gentle Reminders */}
-        <div className="relative max-w-4xl mx-auto px-3 sm:px-5 mt-8 sm:mt-12 md:mt-16 pb-2 sm:pb-3">
+        <div className="relative mx-auto mt-6 max-w-4xl px-3 sm:mt-8 sm:px-5">
           <div
-            className="relative overflow-hidden rounded-xl sm:rounded-2xl border backdrop-blur-lg"
+            className="relative overflow-hidden rounded-xl border sm:rounded-2xl"
             style={cardStyle}
           >
-          {/* Content */}
-          <div className="relative z-10 px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10">
-            {/* Animated couple photos carousel */}
-            <div className="flex justify-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8">
-              {coupleImages.map((image, index) => {
-                const isActive = index === currentImageIndex
-                // Alternate rotation: -5deg, 5deg, -3deg, 3deg for variety
-                const baseRotation = index === 0 ? -5 : index === 1 ? 5 : index === 2 ? -3 : 3
-                // Add gentle rotation animation for active image
-                const currentRotation = isActive 
-                  ? baseRotation + Math.sin(rotationOffset * Math.PI / 180) * 2 
-                  : baseRotation
-                
-                return (
-                  <div
-                    key={index}
-                    className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-700 ease-in-out ${
-                      isActive ? 'scale-110 z-10' : 'scale-100 opacity-70'
-                    }`}
-                    style={{
-                      transform: `rotate(${currentRotation}deg) ${isActive ? "scale(1.1)" : "scale(1)"}`,
-                      borderColor: "color-mix(in srgb, var(--color-motif-deep) 20%, transparent)",
-                    }}
-                  >
-                    <Image
-                      src={image}
-                      alt={`Wedding couple ${index + 1}`}
-                      fill
-                      className={`object-cover transition-opacity duration-500 ${
-                        isActive ? 'opacity-100' : 'opacity-70'
-                      }`}
-                      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
-                    />
+            <div className="relative z-10 px-4 py-5 text-center sm:px-6 sm:py-6">
+              <CoupleImagesCarousel
+                coupleImages={COUPLE_IMAGES}
+                currentImageIndex={currentImageIndex}
+                rotationOffset={rotationOffset}
+              />
+
+              <h3
+                className={`${cinzel.className} ${ct.sectionTitle} font-semibold tracking-[0.14em]`}
+                style={{ color: "var(--color-welcome-navy)" }}
+              >
+                Gentle Reminders
+              </h3>
+              <p
+                className={`font-goudy-italic ${ct.body} mx-auto mt-2 max-w-lg leading-relaxed`}
+                style={{ color: detailText.body }}
+              >
+                A few thoughtful notes to help everyone enjoy our celebration.
+              </p>
+
+              <div className="mx-auto mt-4 max-w-2xl space-y-3 sm:mt-5 sm:space-y-4">
+                <ReminderCard title="Adults-Only Celebration" variant="accent">
+                  <p>
+                    We kindly request that our wedding be an adults-only occasion. We hope this allows
+                    everyone to relax and fully enjoy the celebration with us.
+                  </p>
+                </ReminderCard>
+
+                <ReminderCard title="Unplugged Ceremony">
+                  <p>
+                    We&apos;re having a mostly unplugged ceremony. Guests may take photos, but we kindly
+                    ask that it be kept minimal. Please avoid blocking or crowding our official
+                    photographers so they can capture the special moments. We&apos;d love for everyone
+                    to stay present and share the moment with us. Don&apos;t worry—professional photos
+                    will be shared with you after the event. Thank you for your understanding.
+                  </p>
+                </ReminderCard>
+
+                <ReminderCard title="Strictly Formal" variant="accent">
+                  <div className="space-y-2.5">
+                    <p>
+                      Kindly follow our suggested attire and color palette above to match our wedding
+                      theme.
+                    </p>
+                    <ColorPalette colors={dressCodeColors} />
+                    <p>Strictly no casual clothes, shoes, or white-colored attire.</p>
                   </div>
-                )
-              })}
-            </div>
+                </ReminderCard>
 
-            {/* Title */}
-            <h3
-              className={`${cinzel.className} ${ct.noteTitle} mb-6 text-center font-semibold tracking-[0.14em] sm:mb-8`}
-              style={{ color: "var(--color-welcome-navy)" }}
-            >
-              GENTLE REMINDERS
-            </h3>
-
-            {/* Reminders List */}
-            <div className="space-y-4 sm:space-y-5 md:space-y-6 max-w-2xl mx-auto">
-               {/* No Kinds */}
-               {/* <div className="bg-motif-cream/60 rounded-lg p-4 sm:p-5 md:p-6 border border-motif-deep/10 shadow-sm">
-                <h4 className={`${cinzel.className} ${ct.reminderHead} font-semibold mb-2 sm:mb-3`} style={{ color: detailText.heading }}>
-                Adults-Only Celebration
-                </h4>
-                <p className={`${cormorant.className} ${ct.reminderBody} leading-relaxed`} style={{ ...bodyFont, color: detailText.body }}>
-                We kindly request that our wedding be an adults-only occasion. We hope this allows everyone to relax and fully enjoy the celebration with us.
-                </p>
-              </div> */}
-              {/* Unplugged Ceremony Reminder */}
-              <div className="rounded-lg border p-4 shadow-sm sm:p-5 md:p-6" style={softPanelStyle}>
-                <h4 className={`${cinzel.className} ${ct.reminderHead} mb-2 font-semibold sm:mb-3`} style={{ color: detailText.heading }}>
-                Unplugged Ceremony
-
-                </h4>
-                <p className={`font-goudy-italic ${ct.reminderBody} leading-relaxed`} style={{ color: detailText.body }}>
-                We&apos;re having a mostly unplugged ceremony. Guests may take photos, but we kindly ask that it be kept minimal. Please avoid blocking or crowding our official photographers so they can capture the special moments. We&apos;d love for everyone to stay present and share the moment with us. Don&apos;t worry—professional photos will be shared with you after the event. Thank you for your understanding 
-                </p>
-              </div>
-
-              {/* Dress Code Reminder */}
-              <div className="rounded-lg border p-4 shadow-sm sm:p-5 md:p-6" style={softPanelStyle}>
-                <h4 className={`${cinzel.className} ${ct.reminderHead} mb-2 font-semibold sm:mb-3`} style={{ color: detailText.heading }}>
-                Strictly Formal
-                </h4>
-                <div className={`font-goudy-italic ${ct.reminderBody} space-y-3 leading-relaxed`} style={{ color: detailText.body }}>
+                <ReminderCard title="Arrival">
                   <p>
-                    Kindly follow our suggested attire and color palette below to match our wedding theme.
+                    To ensure everything runs smoothly, please arrive at least 30 minutes before the
+                    ceremony starts. The program will begin at {siteConfig.ceremony.time}, so we kindly
+                    ask everyone to arrive by {siteConfig.ceremony.guestsTime}. This will give you time
+                    to find your seat, take in the beautiful setup, and be fully present for our special
+                    moment.
                   </p>
-                  <p>
-                    Strictly no casual clothes, shoes, or white-colored attire.
-                  </p>
-                </div>
+                </ReminderCard>
               </div>
-
-              {/* Arrival Reminder */}
-              {/* <div className="bg-motif-cream/60 rounded-lg p-4 sm:p-5 md:p-6 border border-motif-deep/10 shadow-sm">
-                <h4 className={`${cinzel.className} ${ct.reminderHead} font-semibold mb-2 sm:mb-3`} style={{ color: detailText.heading }}>
-                Arrival
-                </h4>
-                <p className={`${cormorant.className} ${ct.reminderBody} leading-relaxed`} style={{ ...bodyFont, color: detailText.body }}>
-                To ensure everything runs smoothly, please arrive at least 30 minutes before the ceremony starts. The program will begin at {siteConfig.ceremony.time}, so we kindly ask everyone to arrive by {siteConfig.ceremony.guestsTime} minutes. This will give you time to find your seat, take in the beautiful setup, and be fully present for our special moment
-                </p>
-              </div> */}
             </div>
           </div>
         </div>
       </div>
-
       {/* Enhanced Image Modal */}
       {showImageModal && (
         <div
@@ -1004,7 +1076,7 @@ export function Details() {
                   <>
                     <Heart className="w-4 h-4" fill="var(--color-motif-cream)" style={{ color: "var(--color-motif-cream)" }} />
                     <span className="text-xs sm:text-sm font-bold text-motif-cream">
-                      Ceremony & Reception
+                      Ceremony Venue
                     </span>
                   </>
                 ) : (
@@ -1027,7 +1099,11 @@ export function Details() {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0" />
 
               <Image
-                src={showImageModal === "ceremony" ? "/Details/ceremony&location.jpg" : "/Details/Kayama Mountain Resort And Events Place, Sitio Kaytuyang, Brgy. Aga Nasugbu, Batangas.png"}
+                src={
+                  showImageModal === "ceremony"
+                    ? ceremonyImages[currentCeremonyImageIndex] ?? ceremonyImages[0]
+                    : receptionImages[currentReceptionImageIndex] ?? receptionImages[0]
+                }
                 alt={showImageModal === "ceremony" ? ceremonyLocationFormatted : receptionLocationFormatted}
                 fill
                 className="object-contain p-6 sm:p-8 md:p-10 transition-transform duration-700 group-hover:scale-105 z-10"
@@ -1070,35 +1146,19 @@ export function Details() {
 
                     {/* Date & Time info */}
                     {showImageModal === "ceremony" && (
-                      <div className="space-y-2">
-                        <div
-                          className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg border"
-                          style={{
-                            color: "var(--color-motif-cream)",
-                            backgroundColor: "var(--color-motif-deep)",
-                            opacity: 0.9,
-                            borderColor: "var(--color-motif-cream)",
-                          }}
-                        >
-                          <Clock className="w-4 h-4 text-motif-cream shrink-0" />
-                          <span>
-                            Ceremony — {formattedCeremonyDate} at {siteConfig.ceremony.time}
-                          </span>
-                        </div>
-                        <div
-                          className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg border"
-                          style={{
-                            color: "var(--color-motif-cream)",
-                            backgroundColor: "var(--color-motif-deep)",
-                            opacity: 0.9,
-                            borderColor: "var(--color-motif-cream)",
-                          }}
-                        >
-                          <Utensils className="w-4 h-4 text-motif-cream shrink-0" />
-                          <span>
-                            Reception — {formattedReceptionDate} at {siteConfig.reception.time}
-                          </span>
-                        </div>
+                      <div
+                        className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg border"
+                        style={{
+                          color: "var(--color-motif-cream)",
+                          backgroundColor: "var(--color-motif-deep)",
+                          opacity: 0.9,
+                          borderColor: "var(--color-motif-cream)",
+                        }}
+                      >
+                        <Clock className="w-4 h-4 text-motif-cream shrink-0" />
+                        <span>
+                          {formattedCeremonyDate} at {siteConfig.ceremony.time}
+                        </span>
                       </div>
                     )}
                     {showImageModal === "reception" && (
@@ -1173,8 +1233,6 @@ export function Details() {
           </div>
         </div>
       )}
-     
-      </div>
       </Section>
     </div>
   )

@@ -5,12 +5,12 @@ import {
 
 export const siteConfig = {
   couple: {
-    bride: "Gayle Kathleen Asoy Gable", //Noenyl Bryle M. Gonzaga
-    brideNickname: "Kath", //Ltryl
-    groom: "Jopert Rey Cabote De La Cruz", //Ltryl B. Benitez
-    groomNickname: "Jopert",
-    monogram:"/monogram/mono-colored.png" ,//Ltryl
-    backgroundMusic:"/background_music/Enchanted - Orchestral Cover by Joseph William Morgan (Official Video).mp3"
+    bride: "Alexandria G. Desuyo", //Noenyl Bryle M. Gonzaga
+    brideNickname: "Alexandria", //Ltryl
+    groom: "John Wendell G. Talagtag", //Ltryl B. Benitez
+    groomNickname: "John",
+    monogram:"/monogram/monogram.png" ,//Ltryl
+    backgroundMusic:"/background_music/Keenan Te - Rest of My Life (Wedding Version).mp3"
   },
   googleAPI:{
     messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSeZyqdEWHbpTcUO_ZxuZ9NyhJRgWxVAm2ex97M24LAS7lNmRQ/formResponse",   //done
@@ -25,9 +25,9 @@ export const siteConfig = {
     googleShare: "https://docs.google.com/spreadsheets/d/1YyCJqiMRftgt6Z2Qzcz0usQIPvnQdCbwoAXAU3yaDsc/edit?usp=sharing", 
   },
   wedding: {
-    date: "October 18, 2026",
+    date: "December 12, 2026",
     time: "3:00 PM",
-    venue: "St. Anthony of Padua Parish",
+    venue: "Primus Hotel and Resort",
     tagline: "are getting married!",
     theme: "Our wedding palette is inspired by timeless elegance and warmth.Motif Colors: Champagne Gold, Soft Beige, Warm Soft Brown",
     motif: "#BBCED5, #B9C3A8, #F3D8C5, #D1C4D4, #ECD8BA, #F4E8D8, #E1DCCF",
@@ -40,7 +40,7 @@ export const siteConfig = {
   },
   details: {
     rsvp: {
-      deadline: "August 30, 2026",
+      deadline: "November 30, 2026",
       coordinator: "GO Events",
       phone: "0916 872 7621",
     },
@@ -55,34 +55,34 @@ export const siteConfig = {
     id: "Gcash",
     src: "/QR/Gcash.png",
     label: "Gcash",
-    accountNumber: "JO***T R** D. : 0945 658 ****",
+    accountNumber: "AL********A D.",
     },
     QR_2:{
-    id: "BDO",
-    src: "/QR/BDO.png",
-    label: "BDO",
-    accountNumber: "JOPERTKATH : *******1785",
+    id: "GOtyme Bank",
+    src: "/QR/GOtyme.png",
+    label: "GOtyme Bank",
+    accountNumber: "John Wendel Talagtag",
     }
   },
   ceremony: {
-    location: "Farm Hills Garden",
-    venue: "Brgy. Ulat, Silang, 4118 Cavite, Philippines",
-    map: "https://maps.app.goo.gl/XsvkMe2e4G47JfEA9",
-    date: "October 18, 2026",
-    day: "Sunday",
+    location: "Primus Hotel and Resort - Primavera Garden",
+    venue: "Caceres Heights Subdivision, KM 9, Pacol Road, Brgy. Pacol, Naga City, Camarines Sur",
+    map: "https://maps.app.goo.gl/rmudeAwUsF5hmCq78",
+    date: "December 12, 2026",
+    day: "Saturday",
     time: "3:00 PM",
     entourageTime: "2:00 PM",
     guestsTime: "2:30 PM",
-    image: ["/Details/reception.png", "/Details/reception2.png", "/Details/reception3.png"],
+    image: ["/Details/ceremony1.png", "/Details/ceremony2.png"],
   },
   reception: {
-    location: "Baybayon Ni Tata Joven",
-    venue: "Brgy. Ngolos, Guiuan, Eastern Samar ",
-    map: "https://maps.app.goo.gl/LBsKoJMUGNVwKSqK8",
-    date: "October 18, 2026",
-    day: "Wednesday",
+    location: "Primus Hotel and Resort - Peñafrancia Hall",
+    venue: "Caceres Heights Subdivision, KM 9, Pacol Road, Brgy. Pacol, Naga City, Camarines Sur",
+    map: "https://maps.app.goo.gl/rmudeAwUsF5hmCq78",
+    date: "December 12, 2026",
+    day: "Saturday",
     time: "6:00 PM",
-    image: ["/Details/reception.png", "/Details/reception2.png", "/Details/reception3.png"],
+    image: ["/Details/reception1.png", "/Details/reception2.png","/Details/reception3.png"],
   },
   dressCode: {
       theme: "STRICTLY FORMAL",
@@ -134,17 +134,17 @@ Now, as they prepare to say yes before God and the people they love most, Cather
   playlist: {
     title: "A Playlist from our hearts",
     subtitle: "Songs that have been part of our journey together",
-    playlistName: "Kath & Jopert Wedding",
+    playlistName: "John & Alexandria Wedding",
     embedUrl:
     //"https://open.spotify.com/embed/playlist/4fr1yyG0dA8rAnhYTQxECe?utm_source=generator&si=32898d38071f43ba
-      "https://open.spotify.com/embed/playlist/4fr1yyG0dA8rAnhYTQxECe?utm_source=generator&si=32898d38071f43ba",
-    spotifyUrl: "https://open.spotify.com/playlist/4fr1yyG0dA8rAnhYTQxECe",
+      "https://open.spotify.com/embed/playlist/1uW1JmEJKE2NedlTFzK5zi?utm_source=generator&si=32898d38071f43ba",
+    spotifyUrl: "https://open.spotify.com/playlist/1uW1JmEJKE2NedlTFzK5zi",
   },
   snapShare: {
     googleDriveLink:
       "https://drive.google.com/drive/folders/1GPp6UBBGJ4eY4G9jE9Esfo2209PuEgWk?usp=sharing",
     albumQR: "/QR/AlbumQR.png",
-    hashtag: ["#JOPERTfoundhisKATHadhana",  ],
+    hashtag: ["#JohnAndAlexandriaWedding",  ],
     instructions: "Please scan this QR Code and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
   },
   accommodation: {

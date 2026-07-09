@@ -215,7 +215,31 @@ export function CoupleVideo() {
         <div className="pointer-events-none absolute left-0 top-0 z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/decoration/decoration/left-top-decoration.png"
+            src="/decoration/left-top-decoration.png"
+            alt=""
+            className={CORNER_DECO_CLASS}
+          />
+        </div>
+        <div className="pointer-events-none absolute right-0 top-0 z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/decoration/right-top-decoration.png"
+            alt=""
+            className={CORNER_DECO_CLASS}
+          />
+        </div>
+        <div className="pointer-events-none absolute bottom-0 left-0 z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/decoration/left-bottom-decoration.png"
+            alt=""
+            className={CORNER_DECO_CLASS}
+          />
+        </div>
+        <div className="pointer-events-none absolute bottom-0 right-0 z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/decoration/right-bottom-decoration.png"
             alt=""
             className={CORNER_DECO_CLASS}
           />

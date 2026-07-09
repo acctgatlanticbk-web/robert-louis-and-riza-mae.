@@ -17,7 +17,7 @@ const desktopBackgroundSrcs: readonly string[] = [
 ]
 
 const mobileBackgroundSrcs: readonly string[] = [
-'/gallery-design/mobile (2).jpg',
+'/mobile-background/couples (10).webp',
 ]
 
 const SHOW_BUTTERFLIES = false
@@ -559,8 +559,8 @@ export function Hero() {
             className="w-full max-w-[min(90vw,22rem)] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl aspect-[528/473] mx-auto drop-shadow-2xl"
             style={{
               backgroundColor: "var(--color-motif-cream)",
-              WebkitMaskImage: "url(/Details/couplename.png)",
-              maskImage: "url(/Details/couplename.png)",
+              WebkitMaskImage: "url(/decoration/coupleName.png)",
+              maskImage: "url(/decoration/coupleName.png)",
               WebkitMaskSize: "contain",
               maskSize: "contain",
               WebkitMaskRepeat: "no-repeat",

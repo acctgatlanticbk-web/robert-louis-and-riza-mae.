@@ -12,7 +12,7 @@ const theSeasons = localFont({
 })
 
 const lightBg = "var(--color-welcome-bg)"
-const darkBg = "var(--color-welcome-navy)"
+const darkBg = "var(--color-motif-accent)"
 
 interface StorySectionProps {
   imageSrc: string
@@ -53,9 +53,9 @@ export const StorySection: React.FC<StorySectionProps> = ({
 
   const imageFrameStyle = isDark
     ? {
-        background: "color-mix(in srgb, var(--color-welcome-bg) 12%, var(--color-welcome-navy))",
+        background: "color-mix(in srgb, var(--color-welcome-bg-soft) 12%, var(--color-welcome-bg-soft))",
         boxShadow:
-          "0 10px 28px color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+          "0 10px 28px color-mix(in srgb, var(--color-motif-accent) 35%, transparent)",
       }
     : {
         background: "var(--color-welcome-bg-soft)",
