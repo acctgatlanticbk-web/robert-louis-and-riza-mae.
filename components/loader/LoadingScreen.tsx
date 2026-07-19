@@ -17,7 +17,7 @@ const COUNTDOWN_BOXES = [
 ];
 
 const MAIN_BW_IMAGE = '/mobile-background/couples (3).jpg';
-const DESKTOP_BW_IMAGE = '/gallery-design/desktops.jpg';
+const DESKTOP_BW_IMAGE = '/desktop-background/couples (2).jpg';
 const STAGGER_DELAY_MS = 4000; // Each image appears every 4 seconds
 const BOX_TRANSITION_MS = 1200; // Slow, smooth transition
 const TOTAL_DURATION_MS = COUNTDOWN_BOXES.length * STAGGER_DELAY_MS + 3000;
