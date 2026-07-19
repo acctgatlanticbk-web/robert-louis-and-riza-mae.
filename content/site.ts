@@ -10,19 +10,19 @@ export const siteConfig = {
     groom: "Robert Louis Capuz", //Ltryl B. Benitez
     groomNickname: "Robert Louis",
     monogram:"/monogram/monog.png" ,//Ltryl
-    backgroundMusic:"/background_music/Keenan Te - Rest of My Life (Wedding Version).mp3"
+    backgroundMusic:"/background_music/Jules Larson - Running Wild (Lyrics).mp3"
   },
   googleAPI:{
-    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSdEleuePbXlv-zSfN_-SmkHGTSMTxTNp6CbhH_BuDpeNvRz8g/formResponse",   //done
-    message: "https://script.google.com/macros/s/AKfycbzK1g2JQZanF2G4WsEJKCI5zSe_HZlOWoOa2G4zyWeO08TBBJZqEZw1G2-3TJf3g2M_/exec",  //done
-    guestList: "https://script.google.com/macros/s/AKfycbx6R7C6_RTyavwF9sSvwfjrXQOdOrBx55o9OkJIKlzOFFjWuXwG9_aEZod2CfHQZoA3/exec",  //done
-    guestRequest: "https://script.google.com/macros/s/AKfycbzhYzTcq2eGlyl5mF8sTbvq9fjz89RxMgb45_XXSZBl9fYlpBvWuTCSTngLuKTzxFlG/exec",   //done
-    entourage: "https://script.google.com/macros/s/AKfycbwywxxvPp_KQDc0sJy1-oKfpNMZVRX1pU7w99bdEZjflVDTWTjKCHalsCcUiZOj-reM/exec",  //done
-    sponsors: "https://script.google.com/macros/s/AKfycbzIyTIj1zKRIFpzmZDT9MH2f0n3yz_YZQUmlHBofiNITkixWMsgpqlqpHsP3DoAX4a4/exec",  //done 
+    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSeixbdhxMFHO9as4zwfRJqxSse_6Zf2Ed6E0zRW65dS3HfuCA/formResponse",   //done
+    message: "https://script.google.com/macros/s/AKfycbwksfOXHpolNKOryuiJf5leZDksMKEBD13oqdetCA6yhScJN-cjoNzFVmwHdO8Hz_pv/exec",  //done
+    guestList: "https://script.google.com/macros/s/AKfycbyzdzhnqsUG9Owjx7KbtkBptT4JTIbQb0O2cP7Miew6E8QddxvXarjirk82H7aCGaCv/exec",  //done
+    guestRequest: "https://script.google.com/macros/s/AKfycbz4YHsWJYOtoRKqZbdO0SQMjUKlcxQTTE5V9ky33FQAQA5VPvdOK_8FI-ROqiOCegy5/exec",   //done
+    entourage: "https://script.google.com/macros/s/AKfycbzUJ9PEGJLFtop2nw1xkfrzu6tdLlk_hw7Utg-tIhnhpE8lzPRRjyFG4VQ0ORID3mYD/exec",  //done
+    sponsors: "https://script.google.com/macros/s/AKfycbxPuLOYMnIloE3mSIUl6xO5L-24nfsWIwtJlOW6Qq-WyBxb_GPlqQgc_Hpj8nNCoI8V/exec",  //done 
     proposalResponses: "https://script.google.com/macros/s/AKfycbwHoYJhiPKcrXelSOklNMQ64R6UWrDCoN3tg4U161wMxxQMR6MCY4U1xnoSHtj4y06e/exec", // uses entourage script with action: proposal
-    weddingDetails: "https://script.google.com/macros/s/AKfycbxndi060nuIdKIUuLz6Glx77HN6CVTNIoFSj5yyiiIej-hDbUIne2r2wKTEiaB6jza7/exec",   //done
+    weddingDetails: "https://script.google.com/macros/s/AKfycbxzNddrHh_j_y9nItkZeR9Uaow9oCetKY54sz_7tcXMsDjiWQG4LugPG5G-G2tGzx6n/exec",   //done
 ////google share 
-    googleShare: "https://docs.google.com/spreadsheets/d/1C2_JxPs1kLGkBCx9Xiyy1SWMgJT7s-fn3BRCD66Od50/edit?usp=sharing", 
+    googleShare: "https://docs.google.com/spreadsheets/d/1ESPWKQ4yvP34k5vNTTXeBwK5cBkkcgh049pFGQgRljw/edit?usp=sharing", 
   },
   wedding: {
     date: "August 7,2026",
@@ -52,17 +52,17 @@ export const siteConfig = {
   },
   giftRegistry: {
     QR_1:{
-    id: "Gcash",
-    src: "/QR/Gcash.png",
-    label: "Gcash",
-    accountNumber: "AL********A D.",
-    },
-    QR_2:{
     id: "GOtyme Bank",
-    src: "/QR/GOtyme.png",
+    src: "/QR/GotymeBank.png",
     label: "GOtyme Bank",
-    accountNumber: "John Wendel Talagtag",
-    }
+    accountNumber: "ROBERT LOUIS ENRIQUEZ : *** **** 3917",
+    },
+    // QR_2:{
+    // id: "GOtyme Bank",
+    // src: "/QR/GOtyme.png",
+    // label: "GOtyme Bank",
+    // accountNumber: "John Wendel Talagtag",
+    // }
   },
   ceremony: {
     location: "Archdiocesan Shrine of St. Therese of the Child Jesus",
@@ -81,7 +81,7 @@ export const siteConfig = {
     map: "https://maps.app.goo.gl/ZnTVpR7EF25HCEYk7",
     date: "August 7, 2026",
     day: "Friday",
-    time: "6:00 PM",
+    time: "4:30 PM",
     image: ["/Details/reception1.png", "/Details/reception2.png","/Details/reception3.png"],
   },
   dressCode: {
@@ -136,9 +136,9 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     subtitle: "Songs that have been part of our journey together",
     playlistName: "Robert Louis & Riza Mae Wedding",
     embedUrl:
-    //https://open.spotify.com/embed/playlist/2swSI5Isev3ie1ZC9q2TxK?utm_source=generator&theme=0&si=f46522a1ef6f4400
-      "https://open.spotify.com/embed/playlist/2swSI5Isev3ie1ZC9q2TxK?utm_source=generator&si=f46522a1ef6f4400",
-    spotifyUrl: "https://open.spotify.com/playlist/2swSI5Isev3ie1ZC9q2TxK",
+    //https://open.spotify.com/embed/playlist/0DBzvLYL5p8IqaZ9sVx9ze?utm_source=generator&theme=0&si=797af1440653447e
+      "https://open.spotify.com/embed/playlist/0DBzvLYL5p8IqaZ9sVx9ze?utm_source=generator&si=797af1440653447e",
+    spotifyUrl: "https://open.spotify.com/playlist/0DBzvLYL5p8IqaZ9sVx9ze",
   },
   snapShare: {
     googleDriveLink:

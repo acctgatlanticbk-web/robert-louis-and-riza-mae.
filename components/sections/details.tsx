@@ -150,27 +150,27 @@ const ct = {
 
 const attireGuide = {
   sponsors: {
-    image: "/Details/sponsors.png",
+    image: "/Details/sponsorss.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#C3878C"] as const,
-      description: "Elegant dusty rose gowns",
+      colors: ["#F0CCD0", "#CF8890"] as const,
+      description: "Formal Dress",
     },
     gentlemen: {
-      colors: ["#000000", "#FFFFFF","#C3878C"] as const,
-      description: "Black suits with black pants, paired with dusty rose neckties",
+      colors: ["#FAEDDD", "#E9C6B3","#000000"] as const,
+      description: "Barong Tagalog and Slacks"
     },
   },
   entourage: {
-    image: "/Details/entourage (4).png",
+    image: "/Details/guest.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
-      description: "Dusty Rose, Blush Pink, Rose Pink, Peach",
+      colors: ["#F0CCD0", "#CF8890", "#FAEDDD", "#757E5F", "#E9C6B3"] as const,
+      description: "Formal Dress",
     },
     gentlemen: {
-      colors: ["#000000", "#FFFFFF"] as const,
-      description: "Black and White and ribbon tie",
+      colors: ["#F0CCD0", "#CF8890", "#FAEDDD", "#757E5F", "#E9C6B3"] as const,
+      description: "Long-Sleeves and Slacks",
     },
   },
   guests: {
@@ -916,7 +916,7 @@ export function Details() {
             </div>
           </AttireCard>
 
-          <AttireCard
+          {/* <AttireCard
             title="Guests"
             image={attireGuide.guests.image}
             imageAspect={attireGuide.guests.imageAspect}
@@ -934,7 +934,7 @@ export function Details() {
                 description={attireGuide.guests.gentlemen.description}
               />
             </div>
-          </AttireCard>
+          </AttireCard> */}
         </div>
 
         {/* <div

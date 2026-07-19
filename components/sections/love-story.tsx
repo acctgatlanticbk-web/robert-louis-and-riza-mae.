@@ -221,7 +221,7 @@ export function LoveStory() {
   theme="dark"
   layout="image-right"
   imageSrc="/mobile-background/couples (6).png"
-  title="A Memory We'll Treasure Forever"
+  title="A Memory to Treasure"
   text={
     <>
       <p>
