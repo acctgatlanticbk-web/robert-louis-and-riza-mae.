@@ -203,7 +203,7 @@ export function LoveStory() {
   theme="light"
   layout="image-left"
   isLast={true}
-  imageSrc="/mobile-background/couples (5).jpg"
+  imageSrc="/mobile-background/couples (8).png"
   title="A Date to Remember"
   text={
     <>
