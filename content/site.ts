@@ -5,9 +5,9 @@ import {
 
 export const siteConfig = {
   couple: {
-    bride: "Riza Mae Enriquez", //Noenyl Bryle M. Gonzaga
+    bride: "Riza Mae Capus", //Noenyl Bryle M. Gonzaga
     brideNickname: "Riza Mae", //Ltryl
-    groom: "Robert Louis Capuz", //Ltryl B. Benitez
+    groom: "Robert Louis Enriquez", //Ltryl B. Benitez
     groomNickname: "Robert Louis",
     monogram:"/monogram/monog.png" ,//Ltryl
     backgroundMusic:"/background_music/Jules Larson - Running Wild (Lyrics).mp3"
