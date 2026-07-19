@@ -122,7 +122,7 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
     //   imageSrc: "/weddingtimeline/assemble.png",
     // },
     {
-      time: "2:30 PM",
+      time: "12:30 PM",
       title: "Arrival",
       location: siteConfig.ceremony.location,
       icon: GuestsIcon,

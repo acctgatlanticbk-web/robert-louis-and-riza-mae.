@@ -40,8 +40,8 @@ export const siteConfig = {
   },
   details: {
     rsvp: {
-      deadline: "November 30, 2026",
-      coordinator: "GO Events",
+      deadline: "July 25, 2026",
+      coordinator: "GO Events & Planning",
       phone: "0916 872 7621",
     },
   },
@@ -144,7 +144,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     googleDriveLink:
       "https://drive.google.com/drive/folders/1OcbF6e-oefHoNO4jCQ0MldQc9iUkB2sA?usp=sharing",
     albumQR: "/QR/AlbumQR.png",
-    hashtag: ["#RobertLouisAndRizaMaeWedding",],
+    hashtag: ["#iRIZArvedMyHeartForBobby",],
     instructions: "Please scan this QR Code and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
   },
   accommodation: {
