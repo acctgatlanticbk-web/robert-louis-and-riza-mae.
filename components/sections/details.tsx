@@ -644,10 +644,10 @@ function EventVenueCard({
 // Colors sourced from globals.css @theme inline — edit there to update everywhere
 
 const COUPLE_IMAGES = [
-  "/gallery-design/boxes (1).jpg",
-  "/gallery-design/boxes (2).jpg",
-  "/gallery-design/boxes (3).jpg",
-  "/gallery-design/Phones.jpg",
+  "/gallery-design/box (1).jpg",
+  "/gallery-design/box (2).jpg",
+  "/gallery-design/box (3).jpg",
+  "/gallery-design/box (4).jpg",
 ]
 
 export function Details() {

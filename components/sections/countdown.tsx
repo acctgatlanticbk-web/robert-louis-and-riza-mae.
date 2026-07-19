@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Section } from "@/components/section"
 import { motion } from "motion/react"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { useSiteConfig } from "@/hooks/use-site-config"
+import { parseWeddingDate } from "@/lib/wedding-date"
 import Counter from "@/components/Counter"
 import { CloudinaryImage } from "@/components/ui/cloudinary-image"
 
@@ -159,13 +160,18 @@ function CountdownUnit({ value, label }: CountdownUnitProps) {
 
 export function Countdown() {
   const siteConfig = useSiteConfig()
-  const ceremonyDate = siteConfig.ceremony.date
   const ceremonyTimeDisplay = siteConfig.ceremony.time
-  const [ceremonyMonth = "June", ceremonyDayRaw = "7", ceremonyYear = "2026"] = ceremonyDate.split(" ")
-  const ceremonyDayNumber = ceremonyDayRaw.replace(/[^0-9]/g, "") || "7"
+  const parsedDate = useMemo(
+    () => parseWeddingDate(siteConfig.ceremony.date ?? siteConfig.wedding.date),
+    [siteConfig.ceremony.date, siteConfig.wedding.date],
+  )
+  const ceremonyMonth = parsedDate.month
+  const ceremonyDayNumber = parsedDate.day
+  const ceremonyYear = parsedDate.year
   const { brideNickname, groomNickname } = siteConfig.couple
-  const ceremonyDay = siteConfig.ceremony.day || "Thursday"
-  const ceremonyDayShort = ceremonyDay.slice(0, 3).toUpperCase()
+  const ceremonyDayShort = (
+    siteConfig.ceremony.day ?? parsedDate.dayOfWeek
+  ).slice(0, 3).toUpperCase()
   // Parse the date: December 20, 2025 at 10:30 AM PH Time (GMT+0800)
   // Extract time from "10:30 A.M., PH Time" -> "10:30 A.M."
   const timeStr = ceremonyTimeDisplay.split(",")[0].trim() // "10:30 A.M."
@@ -177,7 +183,10 @@ export function Countdown() {
     "May": "05", "June": "06", "July": "07", "August": "08",
     "September": "09", "October": "10", "November": "11", "December": "12"
   }
-  const monthNum = monthMap[ceremonyMonth] || "12"
+  const monthKey = Object.keys(monthMap).find(
+    (month) => month.toUpperCase() === ceremonyMonth.toUpperCase(),
+  )
+  const monthNum = monthKey ? monthMap[monthKey] : "12"
   const dayNum = ceremonyDayNumber.padStart(2, "0")
   
   // Parse time: "3:00 PM" -> 15:00

@@ -131,15 +131,15 @@ export function LoveStory() {
   theme="light"
   layout="image-left"
   isFirst={true}
-  title="You are Invited to Celebrate With Us"
-  imageSrc="/mobile-background/couples (23).webp"
+  title="A Joyful Invitation"
+  imageSrc="/mobile-background/couples (1).jpg"
   text={
     <>
       <p className="mb-4">
-      Some moments are meant to be shared with the people who matter most.
+      Some moments become unforgettable when shared with the people who have been part of our lives and our journey.
       </p>
       <p className="mb-4">
-      We're getting married on December 12, 2026, and we would be truly honored to have you there with us.
+      We warmly invite you to witness our wedding on August 7, 2026 at 1:00 PM at the Archdiocesan Shrine of St. Therese of the Child Jesus, Cebu City. Your presence would be a cherished blessing as we begin our life together.
       </p>
     </>
   }
@@ -148,15 +148,15 @@ export function LoveStory() {
 <StorySection
   theme="dark"
   layout="image-right"
-  imageSrc="/mobile-background/couples (20).webp"
-  title="For Being Here With Us"
+  imageSrc="/mobile-background/couples (2).jpg"
+  title="Witness Our Sacred Vows"
   text={
     <>
       <p className="mb-4">
-      Some celebrations are only truly complete with loved ones near.
+      Marriage is more than a celebration—it is a sacred promise made before God and those dearest to our hearts.
       </p>
       <p className="mb-4">
-      Whether you're traveling far or coming from just around the corner, your presence will make this day all the more meaningful.
+      We would be honored to have you witness the moment we exchange our vows and begin a lifetime of love, faith, and commitment together.
       </p>
     </>
   }
@@ -165,18 +165,18 @@ export function LoveStory() {
 <StorySection
   theme="light"
   layout="image-left"
-  imageSrc="/mobile-background/couples (8).webp"
-  title="For the Love and Support"
+  imageSrc="/mobile-background/couples (3).jpg"
+  title="Because Love Grows Together"
   text={
     <>
       <p>
-      We would not be who we are without the people who lifted us along the way.
+      Every lesson, every prayer, and every act of kindness from our family and friends has helped shape the people we are today.
       </p>
       <p className="mb-4">
-      To our families and friends, thank you for your guidance, encouragement, and love that carried us to this moment.
+      As we begin this new chapter, we carry your love, wisdom, and encouragement with grateful hearts.
       </p>
       <p className="mb-4">
-      Every kind word, every gesture of support, has shaped this day in ways words can hardly capture.
+      This joyful occasion is not only the celebration of our love, but also of everyone who helped us find our way to each other.
       </p>
     </>
   }
@@ -185,49 +185,15 @@ export function LoveStory() {
 <StorySection
   theme="dark"
   layout="image-right"
-  imageSrc="/mobile-background/couples (10).webp"
-  title="Becoming Family"
+  imageSrc="/mobile-background/couples (4).jpg"
+  title="Two Families, One Beginning"
   text={
     <>
       <p>
-      This day isn't just about the two of us—it's about all of us.
+      Our wedding marks the union of two hearts, two families, and a future built on love and understanding.
       </p>
       <p className="mb-4">
-      To both of our families coming together, thank you for welcoming us with open arms. We're honored to now call each other family.
-      </p>
-    </>
-  }
-/>
-
-<StorySection
-  theme="light"
-  layout="image-left"
-  isLast={true}
-  imageSrc="/mobile-background/couples (16).webp"
-  title="Mark Your Calendars"
-  text={
-    <>
-      <p>
-      December 12, 2026 will be a day we'll always treasure.
-      </p>
-      <p className="mb-4">
-      We can't wait to celebrate this milestone surrounded by the people we love most—thank you for being one of them.
-      </p>
-    </>
-  }
-/>
-<StorySection
-  theme="dark"
-  layout="image-right"
-  imageSrc="/mobile-background/couples (5).webp"
-  title="With Gratitude, Always"
-  text={
-    <>
-      <p>
-      Words can only say so much, but our gratitude runs deep.
-      </p>
-      <p className="mb-4">
-      Thank you for your love, your blessings, and for being part of our lives on this special day. We carry your presence with us always.
+      We are grateful to celebrate this beautiful beginning surrounded by those who have welcomed, supported, and loved us every step of the way.
       </p>
     </>
   }
@@ -237,15 +203,50 @@ export function LoveStory() {
   theme="light"
   layout="image-left"
   isLast={true}
-  imageSrc="/mobile-background/couples (6).webp"
-  title="Thank You for Being Part of Our Family"
+  imageSrc="/mobile-background/couples (5).jpg"
+  title="A Date to Remember"
   text={
     <>
       <p>
-      Every celebration is made richer by the people who show up for it.
+      August 7, 2026 will forever hold a special place in our hearts.
       </p>
       <p className="mb-4">
-      Thank you, from the bottom of our hearts, for being here, for your love, and for being part of our family.
+      We look forward to celebrating this unforgettable milestone with you and creating memories that we will treasure for a lifetime.
+      </p>
+    </>
+  }
+/>
+
+<StorySection
+  theme="dark"
+  layout="image-right"
+  imageSrc="/mobile-background/couples (6).png"
+  title="A Memory We'll Treasure Forever"
+  text={
+    <>
+      <p>
+      Long after this day has passed, it will be the smiles, laughter, prayers, and shared moments that we will remember most.
+      </p>
+      <p className="mb-4">
+      Thank you for becoming part of one of the most meaningful chapters of our lives. Your presence will forever be woven into our happiest memories.
+      </p>
+    </>
+  }
+/>
+
+<StorySection
+  theme="light"
+  layout="image-left"
+  isLast={true}
+  imageSrc="/mobile-background/couples (7).png"
+  title="With Hearts Full of Gratitude"
+  text={
+    <>
+      <p>
+      Every beautiful beginning is made even more meaningful when shared with those we love.
+      </p>
+      <p className="mb-4">
+      From the bottom of our hearts, thank you for your prayers, your love, and for celebrating this joyous occasion with us. We can't wait to welcome you on our wedding day.
       </p>
     </>
   }

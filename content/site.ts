@@ -5,11 +5,11 @@ import {
 
 export const siteConfig = {
   couple: {
-    bride: "Alexandria G. Desuyo", //Noenyl Bryle M. Gonzaga
-    brideNickname: "Alexandria", //Ltryl
-    groom: "John Wendell G. Talagtag", //Ltryl B. Benitez
-    groomNickname: "John",
-    monogram:"/monogram/monogram.png" ,//Ltryl
+    bride: "Riza Mae Enriquez", //Noenyl Bryle M. Gonzaga
+    brideNickname: "Riza Mae", //Ltryl
+    groom: "Robert Louis Capuz", //Ltryl B. Benitez
+    groomNickname: "Robert Louis",
+    monogram:"/monogram/monog.png" ,//Ltryl
     backgroundMusic:"/background_music/Keenan Te - Rest of My Life (Wedding Version).mp3"
   },
   googleAPI:{
@@ -25,9 +25,9 @@ export const siteConfig = {
     googleShare: "https://docs.google.com/spreadsheets/d/1C2_JxPs1kLGkBCx9Xiyy1SWMgJT7s-fn3BRCD66Od50/edit?usp=sharing", 
   },
   wedding: {
-    date: "December 12, 2026",
-    time: "3:00 PM",
-    venue: "Primus Hotel and Resort",
+    date: "August 7,2026",
+    time: "1:00 PM",
+    venue: "Archdiocesan Shrine of St. Therese of the Child Jesus",
     tagline: "are getting married!",
     theme: "Our wedding palette is inspired by timeless elegance and warmth.Motif Colors: Champagne Gold, Soft Beige, Warm Soft Brown",
     motif: "#BBCED5, #B9C3A8, #F3D8C5, #D1C4D4, #ECD8BA, #F4E8D8, #E1DCCF",
@@ -65,22 +65,22 @@ export const siteConfig = {
     }
   },
   ceremony: {
-    location: "Primus Hotel and Resort - Primavera Garden",
-    venue: "Caceres Heights Subdivision, KM 9, Pacol Road, Brgy. Pacol, Naga City, Camarines Sur",
-    map: "https://maps.app.goo.gl/rmudeAwUsF5hmCq78",
-    date: "December 12, 2026",
-    day: "Saturday",
-    time: "3:00 PM",
-    entourageTime: "2:00 PM",
-    guestsTime: "2:30 PM",
-    image: ["/Details/ceremony1.png", "/Details/ceremony2.png"],
+    location: "Archdiocesan Shrine of St. Therese of the Child Jesus",
+    venue: "Edison St. Lahug, Cebu City",
+    map: "https://maps.app.goo.gl/tLZSNUsRy5TtZjDu6",
+    date: "August 7, 2026",
+    day: "Friday",
+    time: "1:00 PM",
+    entourageTime: "11:00 AM",
+    guestsTime: "12:00 PM",
+    image: ["/Details/ceremony.png", "/Details/ceremony2.png","/Details/ceremony3.png"],
   },
   reception: {
-    location: "Primus Hotel and Resort - Peñafrancia Hall",
-    venue: "Caceres Heights Subdivision, KM 9, Pacol Road, Brgy. Pacol, Naga City, Camarines Sur",
-    map: "https://maps.app.goo.gl/rmudeAwUsF5hmCq78",
-    date: "December 12, 2026",
-    day: "Saturday",
+    location: "Golden Peak Hotel & Suites",
+    venue: "Gorordo Avenue, Corner N. Escario St., Cebu City",
+    map: "https://maps.app.goo.gl/ZnTVpR7EF25HCEYk7",
+    date: "August 7, 2026",
+    day: "Friday",
     time: "6:00 PM",
     image: ["/Details/reception1.png", "/Details/reception2.png","/Details/reception3.png"],
   },
@@ -134,7 +134,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
   playlist: {
     title: "A Playlist from our hearts",
     subtitle: "Songs that have been part of our journey together",
-    playlistName: "John & Alexandria Wedding",
+    playlistName: "Robert Louis & Riza Mae Wedding",
     embedUrl:
     //"https://open.spotify.com/embed/playlist/4fr1yyG0dA8rAnhYTQxECe?utm_source=generator&si=32898d38071f43ba
       "https://open.spotify.com/embed/playlist/1uW1JmEJKE2NedlTFzK5zi?utm_source=generator&si=32898d38071f43ba",
@@ -144,7 +144,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     googleDriveLink:
       "https://drive.google.com/drive/folders/1OcbF6e-oefHoNO4jCQ0MldQc9iUkB2sA?usp=sharing",
     albumQR: "/QR/AlbumQR.png",
-    hashtag: ["#JohnAndAlexandriaWedding",],
+    hashtag: ["#RobertLouisAndRizaMaeWedding",],
     instructions: "Please scan this QR Code and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
   },
   accommodation: {

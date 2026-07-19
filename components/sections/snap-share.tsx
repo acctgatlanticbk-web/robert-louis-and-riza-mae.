@@ -331,8 +331,8 @@ export function SnapShare() {
             </h4>
             <div className="grid w-full min-w-0 grid-cols-2 gap-2 sm:gap-3">
               <div className="relative aspect-square overflow-hidden rounded-xl border border-motif-deep/15 shadow-sm">
-                <Image
-                  src="/mobile-background/couples (4).webp"
+                  <Image
+                    src="/gallery-design/box (1).jpg"
                   alt="Wedding moment 1"
                   fill
                   className="object-cover"
@@ -341,7 +341,7 @@ export function SnapShare() {
               </div>
               <div className="relative aspect-square overflow-hidden rounded-xl border border-motif-deep/15 shadow-sm">
                 <Image
-                  src="/mobile-background/couples (13).webp"
+                  src="/gallery-design/box (3).jpg"
                   alt="Wedding moment 2"
                   fill
                   className="object-cover"
@@ -350,7 +350,7 @@ export function SnapShare() {
               </div>
               <div className="relative col-span-2 aspect-[3/2] overflow-hidden rounded-xl border border-motif-deep/15 shadow-sm">
                 <Image
-                  src="/desktop-background/couples (10).webp"
+                  src="/desktop-background/couples (1).jpg"
                   alt="Wedding moment 3"
                   fill
                   className="object-cover"

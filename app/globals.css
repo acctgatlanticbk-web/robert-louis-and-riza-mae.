@@ -138,32 +138,32 @@
   --font-serif: "Great Vibes", "Great Vibes Fallback";
 
   /* ─── Motif palette — edit here, affects every component ─── */
-  /* Background */
-  --color-motif-cream:   #FFF9F8; /* text couple and the background section */
+/* Background */
+--color-motif-cream:   #FBEAD6; /* text couple and the background section */
 
-  /* Primary Highlight */
-  --color-motif-yellow:  #F9E8DC; /* nothing changes see */
+/* Primary Highlight */
+--color-motif-yellow:  #E5BCA9; /* nothing changes see */
 
-  /* Secondary */
-  --color-motif-soft:    #F7DCE2; /* nothing changes see*/
-  --color-motif-accent:  #CDA5AF; /* nothing changes see */
+/* Secondary */
+--color-motif-soft:    #F0C4CB; /* nothing changes see*/
+--color-motif-accent:  #C87D87; /* nothing changes see */
 
-  /* Primary Brand */
-  --color-motif-deep:    #9F6B78; /* Navbar background. */
-  --color-motif-medium:  #E8CDD2; /* just a line below the navbar border  */
+/* Primary Brand */
+--color-motif-deep:    #6B7556; /* Navbar background. */
+--color-motif-medium:  #D8CDBA; /* just a line below the navbar border  */
 
-  /* Neutral */
-  --color-motif-silver:  #FDFBFA; /* nothing changes see  */
+/* Neutral */
+--color-motif-silver:  #FCF8F3; /* nothing changes see  */
 
-  /* Welcome section */
-  --color-welcome-bg:        color-mix(in srgb, var(--color-motif-cream) 38%, white); /* background color */
-  --color-welcome-bg-soft:   color-mix(in srgb, var(--color-motif-cream) 22%, white); /* background color */
-  --color-welcome-text:      #55494D; /* color to change paragraph text  */
-  --color-welcome-text-soft: #86787C;  /* nothing changes see */
-  --color-welcome-heading:   #9F6B78; /* color to change heading text but the smaller one. */
-  --color-welcome-script:    #B88793; /* nothing changes see */
-  --color-welcome-navy:      #724A56; /* color to change BIG HEADER  */
-  --color-welcome-green:     #D88FA1; /* avatar, button and below header */
+/* Welcome section */
+--color-welcome-bg:        color-mix(in srgb, var(--color-motif-cream) 38%, white); /* background color */
+--color-welcome-bg-soft:   color-mix(in srgb, var(--color-motif-cream) 22%, white); /* background color */
+--color-welcome-text:      #4F5045; /* color to change paragraph text  */
+--color-welcome-text-soft: #7B776F;  /* nothing changes see */
+--color-welcome-heading:   #6B7556; /* color to change heading text but the smaller one. */
+--color-welcome-script:    #C87D87; /* nothing changes see */
+--color-welcome-navy:      #556146; /* color to change BIG HEADER  */
+--color-welcome-green:     #C87D87; /* avatar, button and below header */
   /* ─────────────────────────────────────────────────────────── */
   --font-imperial-script: "Imperial Script", cursive;
   --font-beautiful-malera: "Beautiful Malera", cursive;
