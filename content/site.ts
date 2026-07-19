@@ -136,9 +136,9 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     subtitle: "Songs that have been part of our journey together",
     playlistName: "Robert Louis & Riza Mae Wedding",
     embedUrl:
-    //"https://open.spotify.com/embed/playlist/4fr1yyG0dA8rAnhYTQxECe?utm_source=generator&si=32898d38071f43ba
-      "https://open.spotify.com/embed/playlist/1uW1JmEJKE2NedlTFzK5zi?utm_source=generator&si=32898d38071f43ba",
-    spotifyUrl: "https://open.spotify.com/playlist/1uW1JmEJKE2NedlTFzK5zi",
+    //https://open.spotify.com/embed/playlist/2swSI5Isev3ie1ZC9q2TxK?utm_source=generator&theme=0&si=f46522a1ef6f4400
+      "https://open.spotify.com/embed/playlist/2swSI5Isev3ie1ZC9q2TxK?utm_source=generator&si=f46522a1ef6f4400",
+    spotifyUrl: "https://open.spotify.com/playlist/2swSI5Isev3ie1ZC9q2TxK",
   },
   snapShare: {
     googleDriveLink:
