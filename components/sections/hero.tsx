@@ -9,11 +9,11 @@ import { parseWeddingDate } from "@/lib/wedding-date"
 import Image from "next/image"
 
 const desktopBackgroundSrcs: readonly string[] = [
-  '/desktop-background/couple (1).webp',
-  '/desktop-background/couple (2).webp',
-  '/desktop-background/couple (3).webp',
-  '/desktop-background/couple (4).webp',
-  '/desktop-background/couple (5).webp',
+  '/desktop-background/couples (1).jpg',
+  '/desktop-background/couples (2).jpg',
+  '/desktop-background/couples (3).jpg',
+  '/desktop-background/couples (4).jpg',
+  '/desktop-background/couples (5).jpg',
 ]
 
 const mobileBackgroundSrcs: readonly string[] = [

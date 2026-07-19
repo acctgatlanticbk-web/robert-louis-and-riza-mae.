@@ -37,11 +37,11 @@ const hex = {
 
 
 const desktopImages: string[] = [
-  '/desktop-background/couple (1).webp',
-  '/desktop-background/couple (4).webp',
-  '/desktop-background/couple (2).webp',
-  '/desktop-background/couple (1).webp',
-  '/desktop-background/couple (7).webp',
+  '/desktop-background/couples (1).jpg',
+  '/desktop-background/couples (4).jpg',
+  '/desktop-background/couples (2).jpg',
+  '/desktop-background/couples (1).jpg',
+  '/desktop-background/couples (7).jpg',
 ];
 
 const mobileImages: string[] = [
