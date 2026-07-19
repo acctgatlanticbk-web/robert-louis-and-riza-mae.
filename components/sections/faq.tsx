@@ -155,8 +155,6 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
           {"\n\n"}
           Please respond by {siteConfig.details.rsvp.deadline.replace(/\.\s*$/, "")}.
           {"\n\n"}
-          If you have questions, please contact our coordinator {siteConfig.details.rsvp.coordinator} at{" "}
-          {siteConfig.details.rsvp.phone}.
         </>
       ),
     },

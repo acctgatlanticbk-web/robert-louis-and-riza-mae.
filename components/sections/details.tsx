@@ -162,19 +162,19 @@ const attireGuide = {
     },
   },
   entourage: {
-    image: "/Details/guest.png",
+    image: "/Details/guestsss.png",
     imageAspect: "669/373",
     ladies: {
-      colors: ["#F0CCD0", "#CF8890", "#FAEDDD", "#757E5F", "#E9C6B3"] as const,
+      colors: ["#F0CCD0", "#CF8890", "#757E5F", "#E9C6B3"] as const,
       description: "Formal Dress",
     },
     gentlemen: {
-      colors: ["#F0CCD0", "#CF8890", "#FAEDDD", "#757E5F", "#E9C6B3"] as const,
+      colors: ["#F0CCD0", "#CF8890", "#757E5F", "#E9C6B3"] as const,
       description: "Long-Sleeves and Slacks",
     },
   },
   guests: {
-    image: "/Details/guestAttire.png",
+    image: "/Details/guestsss.png",
     imageAspect: "677/369",
     ladies: {
       colors: ["#C3878C", "#ECB4BC", "#EBA7B3", "#E8B3A7"] as const,
@@ -897,7 +897,7 @@ export function Details() {
           </AttireCard>
 
           <AttireCard
-            title="Entourage"
+            title="Guests"
             image={attireGuide.entourage.image}
             imageAspect={attireGuide.entourage.imageAspect}
             alt="Entourage attire guide"

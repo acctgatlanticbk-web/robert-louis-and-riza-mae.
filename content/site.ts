@@ -72,7 +72,7 @@ export const siteConfig = {
     day: "Friday",
     time: "1:00 PM",
     entourageTime: "11:00 AM",
-    guestsTime: "12:00 PM",
+    guestsTime: "12:30 PM",
     image: ["/Details/ceremony.png", "/Details/ceremony2.png","/Details/ceremony3.png"],
   },
   reception: {
@@ -81,7 +81,7 @@ export const siteConfig = {
     map: "https://maps.app.goo.gl/ZnTVpR7EF25HCEYk7",
     date: "August 7, 2026",
     day: "Friday",
-    time: "4:30 PM",
+    time: "3:00 PM",
     image: ["/Details/reception1.png", "/Details/reception2.png","/Details/reception3.png"],
   },
   dressCode: {
@@ -142,7 +142,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
   },
   snapShare: {
     googleDriveLink:
-      "https://drive.google.com/drive/folders/1OcbF6e-oefHoNO4jCQ0MldQc9iUkB2sA?usp=sharing",
+      "https://drive.google.com/drive/folders/17vvzE5FDPApLFegCx1GXpxvXOwr_Iixr?usp=sharing",
     albumQR: "/QR/AlbumQR.png",
     hashtag: ["#iRIZArvedMyHeartForBobby",],
     instructions: "Please scan this QR Code and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
